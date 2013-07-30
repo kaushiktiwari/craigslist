@@ -1,0 +1,1567 @@
+# Logfile created on Tue Jul 30 02:53:38 -0400 2013  [4;36;1mSQL (15.4ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mSQL (34.1ms)[0m   [0mSHOW TABLES[0m
+  [4;36;1mSQL (289.7ms)[0m   [0;1mDROP TABLE `categories`[0m
+  [4;35;1mSQL (258.1ms)[0m   [0mCREATE TABLE `categories` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(255), `permalink` varchar(75), `parent_id` int(11) DEFAULT 0, `type` varchar(12), `pos` int(11) DEFAULT 0, `pagetitle` varchar(100) DEFAULT 'railslist.com', `metakey` varchar(255) DEFAULT 'railslist.com', `metadesc` varchar(255) DEFAULT 'railslist.com', `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (91.0ms)[0m   [0mDROP TABLE `cities`[0m
+  [4;36;1mSQL (175.1ms)[0m   [0;1mCREATE TABLE `cities` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(255), `permalink` varchar(75), `pagetitle` varchar(100), `metakey` varchar(255), `metadesc` varchar(255), `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [4;35;1mSQL (0.4ms)[0m   [0mSHOW TABLES[0m
+  [4;36;1mSQL (90.7ms)[0m   [0;1mDROP TABLE `classifieds`[0m
+  [4;35;1mSQL (183.1ms)[0m   [0mCREATE TABLE `classifieds` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `title` varchar(75), `description` text, `location` varchar(75), `adtype` varchar(1) DEFAULT 'O', `email` varchar(75), `phone` varchar(75), `activation_code` varchar(40), `status` tinyint DEFAULT 0, `category_id` int(11), `subcategory_id` int(11), `city_id` int(11), `permalink` varchar(255), `image_file_name` varchar(255), `image_content_type` varchar(255), `image_file_size` int(11), `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (99.3ms)[0m   [0mDROP TABLE `simple_captcha_data`[0m
+  [4;36;1mSQL (184.6ms)[0m   [0;1mCREATE TABLE `simple_captcha_data` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `key` varchar(40), `value` varchar(6), `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [4;35;1mSQL (0.5ms)[0m   [0mSHOW TABLES[0m
+  [4;36;1mSQL (10.3ms)[0m   [0;1mSELECT version FROM `schema_migrations`[0m
+
+
+Processing MainController#index (for 127.0.0.1 at 2013-07-30 02:54:38) [GET]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+Rendering template within layouts/main
+Rendering main/index
+Rendered main/_logo (0.3ms)
+Rendered main/_menu (0.4ms)
+  [4;35;1mCity Load (0.7ms)[0m   [0mSELECT id, name, permalink FROM `cities` ORDER BY name ASC[0m
+Completed in 177ms (View: 88, DB: 1) | 200 OK [http://localhost/]
+
+
+Processing UsersController#show (for 127.0.0.1 at 2013-07-30 02:54:43) [GET]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+Rendering users/show
+Completed in 4ms (View: 3, DB: 0) | 200 OK [http://localhost/user]
+
+
+Processing UsersController#create (for 127.0.0.1 at 2013-07-30 02:54:49) [POST]
+  Parameters: {"commit"=>"login", "authenticity_token"=>"a226345a7bc7b888da381a8c21a3315919173e4e", "password"=>"railslist"}
+  [4;35;1mSQL (0.2ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+Redirected to /categories
+Completed in 3ms (DB: 0) | 302 Found [http://localhost/user]
+
+
+Processing CategoriesController#index (for 127.0.0.1 at 2013-07-30 02:54:49) [GET]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+Rendering template within layouts/main
+Rendering categories/index
+Rendered main/_logo (0.1ms)
+Rendered users/_menu (0.3ms)
+  [4;35;1mCategory Load (16.0ms)[0m   [0mSELECT * FROM `categories` WHERE (`categories`.`parent_id` = '0') ORDER BY pos asc[0m
+Completed in 33ms (View: 26, DB: 0) | 200 OK [http://localhost/categories]
+
+
+Processing CategoriesController#new (for 127.0.0.1 at 2013-07-30 02:54:52) [GET]
+  [4;36;1mSQL (0.3ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mCategory Columns (1.4ms)[0m   [0mSHOW FIELDS FROM `categories`[0m
+Rendering template within layouts/main
+Rendering categories/new
+Rendered main/_logo (0.3ms)
+Rendered users/_menu (0.5ms)
+Completed in 25ms (View: 17, DB: 2) | 200 OK [http://localhost/categories/new]
+
+
+Processing CategoriesController#create (for 127.0.0.1 at 2013-07-30 02:55:21) [POST]
+  Parameters: {"category"=>{"metadesc"=>"Books", "permalink"=>"Books", "name"=>"Books", "metakey"=>"Books", "pagetitle"=>"Books"}, "commit"=>"Update", "authenticity_token"=>"a226345a7bc7b888da381a8c21a3315919173e4e"}
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mCategory Columns (1.1ms)[0m   [0mSHOW FIELDS FROM `categories`[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mCategory Exists (9.7ms)[0m   [0mSELECT `categories`.id FROM `categories` WHERE (permalink = 'books') LIMIT 1[0m
+  [4;36;1mCategory Create (12.0ms)[0m   [0;1mINSERT INTO `categories` (`name`, `permalink`, `metadesc`, `updated_at`, `type`, `metakey`, `parent_id`, `pos`, `pagetitle`, `created_at`) VALUES('Books', 'books', 'Books', '2013-07-30 06:55:21', 'Category', 'Books', 0, 0, 'Books', '2013-07-30 06:55:21')[0m
+  [4;35;1mSQL (72.2ms)[0m   [0mCOMMIT[0m
+Redirected to /categories
+Completed in 414ms (DB: 95) | 302 Found [http://localhost/categories]
+
+
+Processing CategoriesController#index (for 127.0.0.1 at 2013-07-30 02:55:21) [GET]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+Rendering template within layouts/main
+Rendering categories/index
+Rendered main/_logo (0.1ms)
+Rendered users/_menu (0.3ms)
+  [4;35;1mCategory Load (0.5ms)[0m   [0mSELECT * FROM `categories` WHERE (`categories`.`parent_id` = '0') ORDER BY pos asc[0m
+  [4;36;1mCategory Columns (0.8ms)[0m   [0;1mSHOW FIELDS FROM `categories`[0m
+Completed in 16ms (View: 11, DB: 0) | 200 OK [http://localhost/categories]
+
+
+Processing CategoriesController#new (for 127.0.0.1 at 2013-07-30 02:55:23) [GET]
+  [4;35;1mSQL (0.2ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mCategory Columns (1.0ms)[0m   [0;1mSHOW FIELDS FROM `categories`[0m
+Rendering template within layouts/main
+Rendering categories/new
+Rendered main/_logo (0.1ms)
+Rendered users/_menu (0.3ms)
+Completed in 78ms (View: 10, DB: 1) | 200 OK [http://localhost/categories/new]
+
+
+Processing CategoriesController#create (for 127.0.0.1 at 2013-07-30 02:55:43) [POST]
+  Parameters: {"category"=>{"metadesc"=>"Classes", "permalink"=>"Classes", "name"=>"Classes", "metakey"=>"Classes", "pagetitle"=>"Classes"}, "commit"=>"Update", "authenticity_token"=>"a226345a7bc7b888da381a8c21a3315919173e4e"}
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mCategory Columns (0.9ms)[0m   [0;1mSHOW FIELDS FROM `categories`[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mCategory Exists (0.4ms)[0m   [0;1mSELECT `categories`.id FROM `categories` WHERE (permalink = 'classes') LIMIT 1[0m
+  [4;35;1mCategory Create (29.2ms)[0m   [0mINSERT INTO `categories` (`name`, `permalink`, `metadesc`, `updated_at`, `type`, `metakey`, `parent_id`, `pos`, `pagetitle`, `created_at`) VALUES('Classes', 'classes', 'Classes', '2013-07-30 06:55:43', 'Category', 'Classes', 0, 0, 'Classes', '2013-07-30 06:55:43')[0m
+  [4;36;1mSQL (121.4ms)[0m   [0;1mCOMMIT[0m
+Redirected to /categories
+Completed in 165ms (DB: 152) | 302 Found [http://localhost/categories]
+
+
+Processing CategoriesController#index (for 127.0.0.1 at 2013-07-30 02:55:43) [GET]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+Rendering template within layouts/main
+Rendering categories/index
+Rendered main/_logo (0.1ms)
+Rendered users/_menu (0.3ms)
+  [4;36;1mCategory Load (0.5ms)[0m   [0;1mSELECT * FROM `categories` WHERE (`categories`.`parent_id` = '0') ORDER BY pos asc[0m
+  [4;35;1mCategory Columns (0.8ms)[0m   [0mSHOW FIELDS FROM `categories`[0m
+Completed in 19ms (View: 13, DB: 0) | 200 OK [http://localhost/categories]
+
+
+Processing CategoriesController#new (for 127.0.0.1 at 2013-07-30 02:55:45) [GET]
+  [4;36;1mSQL (0.4ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mCategory Columns (1.1ms)[0m   [0mSHOW FIELDS FROM `categories`[0m
+Rendering template within layouts/main
+Rendering categories/new
+Rendered main/_logo (0.3ms)
+Rendered users/_menu (0.5ms)
+Completed in 25ms (View: 16, DB: 2) | 200 OK [http://localhost/categories/new]
+
+
+Processing CategoriesController#create (for 127.0.0.1 at 2013-07-30 02:56:06) [POST]
+  Parameters: {"category"=>{"metadesc"=>"Tickets", "permalink"=>"Tickets", "name"=>"Tickets", "metakey"=>"Tickets", "pagetitle"=>"Tickets"}, "commit"=>"Update", "authenticity_token"=>"a226345a7bc7b888da381a8c21a3315919173e4e"}
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mCategory Columns (1.1ms)[0m   [0mSHOW FIELDS FROM `categories`[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mCategory Exists (0.3ms)[0m   [0mSELECT `categories`.id FROM `categories` WHERE (permalink = 'tickets') LIMIT 1[0m
+  [4;36;1mCategory Create (45.5ms)[0m   [0;1mINSERT INTO `categories` (`name`, `permalink`, `metadesc`, `updated_at`, `type`, `metakey`, `parent_id`, `pos`, `pagetitle`, `created_at`) VALUES('Tickets', 'tickets', 'Tickets', '2013-07-30 06:56:06', 'Category', 'Tickets', 0, 0, 'Tickets', '2013-07-30 06:56:06')[0m
+  [4;35;1mSQL (110.9ms)[0m   [0mCOMMIT[0m
+Redirected to /categories
+Completed in 172ms (DB: 158) | 302 Found [http://localhost/categories]
+
+
+Processing CategoriesController#index (for 127.0.0.1 at 2013-07-30 02:56:06) [GET]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+Rendering template within layouts/main
+Rendering categories/index
+Rendered main/_logo (0.1ms)
+Rendered users/_menu (0.3ms)
+  [4;35;1mCategory Load (0.5ms)[0m   [0mSELECT * FROM `categories` WHERE (`categories`.`parent_id` = '0') ORDER BY pos asc[0m
+  [4;36;1mCategory Columns (0.8ms)[0m   [0;1mSHOW FIELDS FROM `categories`[0m
+Completed in 25ms (View: 16, DB: 0) | 200 OK [http://localhost/categories]
+
+
+Processing CitiesController#index (for 127.0.0.1 at 2013-07-30 02:56:09) [GET]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+Rendering template within layouts/main
+Rendering cities/index
+Rendered main/_logo (0.3ms)
+Rendered users/_menu (0.3ms)
+  [4;36;1mCity Load (0.2ms)[0m   [0;1mSELECT id, name, permalink FROM `cities` ORDER BY name ASC[0m
+Completed in 16ms (View: 11, DB: 0) | 200 OK [http://localhost/cities]
+
+
+Processing CitiesController#new (for 127.0.0.1 at 2013-07-30 02:56:10) [GET]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mCity Columns (1.3ms)[0m   [0;1mSHOW FIELDS FROM `cities`[0m
+Rendering template within layouts/main
+Rendering cities/new
+Rendered main/_logo (0.3ms)
+Rendered users/_menu (0.5ms)
+Completed in 21ms (View: 13, DB: 1) | 200 OK [http://localhost/cities/new]
+
+
+Processing CitiesController#create (for 127.0.0.1 at 2013-07-30 02:56:31) [POST]
+  Parameters: {"city"=>{"metadesc"=>"Columbia University", "permalink"=>"Columbia University", "name"=>"Columbia University", "metakey"=>"Columbia University", "pagetitle"=>"Columbia University"}, "commit"=>"Create", "authenticity_token"=>"a226345a7bc7b888da381a8c21a3315919173e4e"}
+  [4;35;1mSQL (0.2ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mCity Columns (0.8ms)[0m   [0;1mSHOW FIELDS FROM `cities`[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mCity Exists (0.4ms)[0m   [0;1mSELECT `cities`.id FROM `cities` WHERE (permalink = 'columbia-university') LIMIT 1[0m
+  [4;35;1mCity Create (20.8ms)[0m   [0mINSERT INTO `cities` (`name`, `permalink`, `metadesc`, `updated_at`, `metakey`, `pagetitle`, `created_at`) VALUES('Columbia University', 'columbia-university', 'Columbia University', '2013-07-30 06:56:31', 'Columbia University', 'Columbia University', '2013-07-30 06:56:31')[0m
+  [4;36;1mSQL (117.1ms)[0m   [0;1mCOMMIT[0m
+Redirected to /cities
+Completed in 147ms (DB: 139) | 302 Found [http://localhost/cities]
+
+
+Processing CitiesController#index (for 127.0.0.1 at 2013-07-30 02:56:32) [GET]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+Rendering template within layouts/main
+Rendering cities/index
+Rendered main/_logo (0.3ms)
+Rendered users/_menu (0.3ms)
+  [4;36;1mCity Load (0.4ms)[0m   [0;1mSELECT id, name, permalink FROM `cities` ORDER BY name ASC[0m
+  [4;35;1mCity Columns (0.7ms)[0m   [0mSHOW FIELDS FROM `cities`[0m
+Completed in 19ms (View: 13, DB: 1) | 200 OK [http://localhost/cities]
+
+
+Processing CitiesController#new (for 127.0.0.1 at 2013-07-30 02:56:33) [GET]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mCity Columns (0.8ms)[0m   [0mSHOW FIELDS FROM `cities`[0m
+Rendering template within layouts/main
+Rendering cities/new
+Rendered main/_logo (0.3ms)
+Rendered users/_menu (0.5ms)
+Completed in 20ms (View: 13, DB: 1) | 200 OK [http://localhost/cities/new]
+
+
+Processing CitiesController#create (for 127.0.0.1 at 2013-07-30 02:56:51) [POST]
+  Parameters: {"city"=>{"metadesc"=>"New  York University", "permalink"=>"New  York University", "name"=>"New  York University", "metakey"=>"New  York University", "pagetitle"=>"New  York University"}, "commit"=>"Create", "authenticity_token"=>"a226345a7bc7b888da381a8c21a3315919173e4e"}
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mCity Columns (0.8ms)[0m   [0mSHOW FIELDS FROM `cities`[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mCity Exists (0.4ms)[0m   [0mSELECT `cities`.id FROM `cities` WHERE (permalink = 'new-york-university') LIMIT 1[0m
+  [4;36;1mCity Create (20.6ms)[0m   [0;1mINSERT INTO `cities` (`name`, `permalink`, `metadesc`, `updated_at`, `metakey`, `pagetitle`, `created_at`) VALUES('New York University', 'new-york-university', 'New York University', '2013-07-30 06:56:51', 'New York University', 'New York University', '2013-07-30 06:56:51')[0m
+  [4;35;1mSQL (136.2ms)[0m   [0mCOMMIT[0m
+Redirected to /cities
+Completed in 169ms (DB: 158) | 302 Found [http://localhost/cities]
+
+
+Processing CitiesController#index (for 127.0.0.1 at 2013-07-30 02:56:51) [GET]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+Rendering template within layouts/main
+Rendering cities/index
+Rendered main/_logo (0.1ms)
+Rendered users/_menu (0.3ms)
+  [4;35;1mCity Load (0.4ms)[0m   [0mSELECT id, name, permalink FROM `cities` ORDER BY name ASC[0m
+  [4;36;1mCity Columns (1.2ms)[0m   [0;1mSHOW FIELDS FROM `cities`[0m
+Completed in 14ms (View: 8, DB: 2) | 200 OK [http://localhost/cities]
+
+
+Processing CitiesController#new (for 127.0.0.1 at 2013-07-30 02:56:53) [GET]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mCity Columns (0.8ms)[0m   [0;1mSHOW FIELDS FROM `cities`[0m
+Rendering template within layouts/main
+Rendering cities/new
+Rendered main/_logo (0.3ms)
+Rendered users/_menu (0.5ms)
+Completed in 18ms (View: 12, DB: 1) | 200 OK [http://localhost/cities/new]
+
+
+Processing CitiesController#create (for 127.0.0.1 at 2013-07-30 02:57:13) [POST]
+  Parameters: {"city"=>{"metadesc"=>"Princeton University", "permalink"=>"Princeton University", "name"=>"Princeton University", "metakey"=>"Princeton University", "pagetitle"=>"Princeton University"}, "commit"=>"Create", "authenticity_token"=>"a226345a7bc7b888da381a8c21a3315919173e4e"}
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mCity Columns (0.8ms)[0m   [0;1mSHOW FIELDS FROM `cities`[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mCity Exists (0.3ms)[0m   [0;1mSELECT `cities`.id FROM `cities` WHERE (permalink = 'princeton-university') LIMIT 1[0m
+  [4;35;1mCity Create (38.7ms)[0m   [0mINSERT INTO `cities` (`name`, `permalink`, `metadesc`, `updated_at`, `metakey`, `pagetitle`, `created_at`) VALUES('Princeton University', 'princeton-university', 'Princeton University', '2013-07-30 06:57:13', 'Princeton University', 'Princeton University', '2013-07-30 06:57:13')[0m
+  [4;36;1mSQL (101.1ms)[0m   [0;1mCOMMIT[0m
+Redirected to /cities
+Completed in 152ms (DB: 141) | 302 Found [http://localhost/cities]
+
+
+Processing CitiesController#index (for 127.0.0.1 at 2013-07-30 02:57:13) [GET]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+Rendering template within layouts/main
+Rendering cities/index
+Rendered main/_logo (0.1ms)
+Rendered users/_menu (0.3ms)
+  [4;36;1mCity Load (0.4ms)[0m   [0;1mSELECT id, name, permalink FROM `cities` ORDER BY name ASC[0m
+  [4;35;1mCity Columns (0.8ms)[0m   [0mSHOW FIELDS FROM `cities`[0m
+Completed in 84ms (View: 13, DB: 1) | 200 OK [http://localhost/cities]
+
+
+Processing SubcategoriesController#index (for 127.0.0.1 at 2013-07-30 02:57:16) [GET]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mSubcategory Columns (1.6ms)[0m   [0mSHOW FIELDS FROM `categories`[0m
+  [4;36;1mSubcategory Load (0.6ms)[0m   [0;1mSELECT * FROM `categories` WHERE ( (`categories`.`type` = 'Subcategory' ) ) ORDER BY name asc[0m
+Rendering template within layouts/main
+Rendering subcategories/index
+Rendered main/_logo (0.3ms)
+Rendered users/_menu (0.5ms)
+Completed in 32ms (View: 13, DB: 2) | 200 OK [http://localhost/subcategories]
+
+
+Processing SubcategoriesController#new (for 127.0.0.1 at 2013-07-30 02:57:18) [GET]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSubcategory Columns (1.0ms)[0m   [0;1mSHOW FIELDS FROM `categories`[0m
+Rendering template within layouts/main
+Rendering subcategories/new
+Rendered main/_logo (0.3ms)
+Rendered users/_menu (0.5ms)
+  [4;35;1mCategory Load (0.3ms)[0m   [0mSELECT * FROM `categories` WHERE (`categories`.`parent_id` = '0') ORDER BY pos asc[0m
+  [4;36;1mCategory Columns (0.9ms)[0m   [0;1mSHOW FIELDS FROM `categories`[0m
+Completed in 29ms (View: 20, DB: 1) | 200 OK [http://localhost/subcategories/new]
+
+
+Processing SubcategoriesController#create (for 127.0.0.1 at 2013-07-30 02:57:30) [POST]
+  Parameters: {"subcategory"=>{"metadesc"=>"railslist.com", "permalink"=>"", "name"=>"Engineering", "metakey"=>"railslist.com", "pagetitle"=>"railslist.com", "parent_id"=>"1"}, "commit"=>"Update", "authenticity_token"=>"a226345a7bc7b888da381a8c21a3315919173e4e"}
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSubcategory Columns (1.2ms)[0m   [0;1mSHOW FIELDS FROM `categories`[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mSubcategory Exists (0.5ms)[0m   [0;1mSELECT `categories`.id FROM `categories` WHERE (permalink = 'engineering') AND ( (`categories`.`type` = 'Subcategory' ) ) LIMIT 1[0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT `categories`.id FROM `categories` WHERE (permalink = 'engineering') AND ( (`categories`.`type` = 'Subcategory' ) ) LIMIT 1[0m
+  [4;36;1mSubcategory Create (17.1ms)[0m   [0;1mINSERT INTO `categories` (`name`, `permalink`, `metadesc`, `updated_at`, `type`, `metakey`, `parent_id`, `pos`, `pagetitle`, `created_at`) VALUES('Engineering', 'engineering', 'railslist.com', '2013-07-30 06:57:30', 'Subcategory', 'railslist.com', 1, 0, 'railslist.com', '2013-07-30 06:57:30')[0m
+  [4;35;1mSQL (101.2ms)[0m   [0mCOMMIT[0m
+Redirected to /subcategories
+Completed in 135ms (DB: 120) | 302 Found [http://localhost/subcategories]
+
+
+Processing SubcategoriesController#index (for 127.0.0.1 at 2013-07-30 02:57:30) [GET]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mSubcategory Columns (0.9ms)[0m   [0mSHOW FIELDS FROM `categories`[0m
+  [4;36;1mSubcategory Load (0.4ms)[0m   [0;1mSELECT * FROM `categories` WHERE ( (`categories`.`type` = 'Subcategory' ) ) ORDER BY name asc[0m
+Rendering template within layouts/main
+Rendering subcategories/index
+Rendered main/_logo (0.2ms)
+Rendered users/_menu (0.4ms)
+  [4;35;1mCategory Columns (1.1ms)[0m   [0mSHOW FIELDS FROM `categories`[0m
+  [4;36;1mCategory Load (0.7ms)[0m   [0;1mSELECT * FROM `categories` WHERE (`categories`.`id` = 1) [0m
+Completed in 25ms (View: 15, DB: 1) | 200 OK [http://localhost/subcategories]
+
+
+Processing SubcategoriesController#new (for 127.0.0.1 at 2013-07-30 02:57:32) [GET]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSubcategory Columns (1.0ms)[0m   [0;1mSHOW FIELDS FROM `categories`[0m
+Rendering template within layouts/main
+Rendering subcategories/new
+Rendered main/_logo (0.2ms)
+Rendered users/_menu (0.6ms)
+  [4;35;1mCategory Load (0.6ms)[0m   [0mSELECT * FROM `categories` WHERE (`categories`.`parent_id` = '0') ORDER BY pos asc[0m
+  [4;36;1mCategory Columns (0.9ms)[0m   [0;1mSHOW FIELDS FROM `categories`[0m
+Completed in 29ms (View: 17, DB: 1) | 200 OK [http://localhost/subcategories/new]
+
+
+Processing SubcategoriesController#create (for 127.0.0.1 at 2013-07-30 02:57:44) [POST]
+  Parameters: {"subcategory"=>{"metadesc"=>"railslist.com", "permalink"=>"", "name"=>"Contemporary Civilisation", "metakey"=>"railslist.com", "pagetitle"=>"railslist.com", "parent_id"=>"2"}, "commit"=>"Update", "authenticity_token"=>"a226345a7bc7b888da381a8c21a3315919173e4e"}
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSubcategory Columns (1.0ms)[0m   [0;1mSHOW FIELDS FROM `categories`[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mSubcategory Exists (0.5ms)[0m   [0;1mSELECT `categories`.id FROM `categories` WHERE (permalink = 'contemporary-civilisation') AND ( (`categories`.`type` = 'Subcategory' ) ) LIMIT 1[0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT `categories`.id FROM `categories` WHERE (permalink = 'contemporary-civilisation') AND ( (`categories`.`type` = 'Subcategory' ) ) LIMIT 1[0m
+  [4;36;1mSubcategory Create (38.8ms)[0m   [0;1mINSERT INTO `categories` (`name`, `permalink`, `metadesc`, `updated_at`, `type`, `metakey`, `parent_id`, `pos`, `pagetitle`, `created_at`) VALUES('Contemporary Civilisation', 'contemporary-civilisation', 'railslist.com', '2013-07-30 06:57:44', 'Subcategory', 'railslist.com', 2, 0, 'railslist.com', '2013-07-30 06:57:44')[0m
+  [4;35;1mSQL (116.1ms)[0m   [0mCOMMIT[0m
+Redirected to /subcategories
+Completed in 169ms (DB: 157) | 302 Found [http://localhost/subcategories]
+
+
+Processing SubcategoriesController#index (for 127.0.0.1 at 2013-07-30 02:57:44) [GET]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mSubcategory Columns (1.0ms)[0m   [0mSHOW FIELDS FROM `categories`[0m
+  [4;36;1mSubcategory Load (0.6ms)[0m   [0;1mSELECT * FROM `categories` WHERE ( (`categories`.`type` = 'Subcategory' ) ) ORDER BY name asc[0m
+Rendering template within layouts/main
+Rendering subcategories/index
+Rendered main/_logo (0.3ms)
+Rendered users/_menu (0.3ms)
+  [4;35;1mCategory Columns (0.9ms)[0m   [0mSHOW FIELDS FROM `categories`[0m
+  [4;36;1mCategory Load (0.3ms)[0m   [0;1mSELECT * FROM `categories` WHERE (`categories`.`id` = 2) [0m
+  [4;35;1mCategory Load (0.3ms)[0m   [0mSELECT * FROM `categories` WHERE (`categories`.`id` = 1) [0m
+Completed in 29ms (View: 17, DB: 2) | 200 OK [http://localhost/subcategories]
+
+
+Processing SubcategoriesController#new (for 127.0.0.1 at 2013-07-30 02:57:46) [GET]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mSubcategory Columns (0.9ms)[0m   [0mSHOW FIELDS FROM `categories`[0m
+Rendering template within layouts/main
+Rendering subcategories/new
+Rendered main/_logo (0.1ms)
+Rendered users/_menu (0.5ms)
+  [4;36;1mCategory Load (0.8ms)[0m   [0;1mSELECT * FROM `categories` WHERE (`categories`.`parent_id` = '0') ORDER BY pos asc[0m
+  [4;35;1mCategory Columns (1.2ms)[0m   [0mSHOW FIELDS FROM `categories`[0m
+Completed in 25ms (View: 17, DB: 1) | 200 OK [http://localhost/subcategories/new]
+
+
+Processing SubcategoriesController#create (for 127.0.0.1 at 2013-07-30 02:57:56) [POST]
+  Parameters: {"subcategory"=>{"metadesc"=>"railslist.com", "permalink"=>"", "name"=>"Macklemore", "metakey"=>"railslist.com", "pagetitle"=>"railslist.com", "parent_id"=>"3"}, "commit"=>"Update", "authenticity_token"=>"a226345a7bc7b888da381a8c21a3315919173e4e"}
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mSubcategory Columns (1.3ms)[0m   [0mSHOW FIELDS FROM `categories`[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mSubcategory Exists (0.3ms)[0m   [0mSELECT `categories`.id FROM `categories` WHERE (permalink = 'macklemore') AND ( (`categories`.`type` = 'Subcategory' ) ) LIMIT 1[0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT `categories`.id FROM `categories` WHERE (permalink = 'macklemore') AND ( (`categories`.`type` = 'Subcategory' ) ) LIMIT 1[0m
+  [4;35;1mSubcategory Create (11.6ms)[0m   [0mINSERT INTO `categories` (`name`, `permalink`, `metadesc`, `updated_at`, `type`, `metakey`, `parent_id`, `pos`, `pagetitle`, `created_at`) VALUES('Macklemore', 'macklemore', 'railslist.com', '2013-07-30 06:57:56', 'Subcategory', 'railslist.com', 3, 0, 'railslist.com', '2013-07-30 06:57:56')[0m
+  [4;36;1mSQL (153.6ms)[0m   [0;1mCOMMIT[0m
+Redirected to /subcategories
+Completed in 182ms (DB: 167) | 302 Found [http://localhost/subcategories]
+
+
+Processing SubcategoriesController#index (for 127.0.0.1 at 2013-07-30 02:57:56) [GET]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSubcategory Columns (1.2ms)[0m   [0;1mSHOW FIELDS FROM `categories`[0m
+  [4;35;1mSubcategory Load (0.5ms)[0m   [0mSELECT * FROM `categories` WHERE ( (`categories`.`type` = 'Subcategory' ) ) ORDER BY name asc[0m
+Rendering template within layouts/main
+Rendering subcategories/index
+Rendered main/_logo (0.1ms)
+Rendered users/_menu (0.3ms)
+  [4;36;1mCategory Columns (1.1ms)[0m   [0;1mSHOW FIELDS FROM `categories`[0m
+  [4;35;1mCategory Load (0.4ms)[0m   [0mSELECT * FROM `categories` WHERE (`categories`.`id` = 2) [0m
+  [4;36;1mCategory Load (0.3ms)[0m   [0;1mSELECT * FROM `categories` WHERE (`categories`.`id` = 1) [0m
+  [4;35;1mCategory Load (0.3ms)[0m   [0mSELECT * FROM `categories` WHERE (`categories`.`id` = 3) [0m
+Completed in 24ms (View: 13, DB: 2) | 200 OK [http://localhost/subcategories]
+
+
+Processing UsersController#destroy (for 127.0.0.1 at 2013-07-30 02:58:06) [GET]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+Cookie set: password=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT
+Redirected to controllermain
+Completed in 419ms (DB: 0) | 302 Found [http://localhost/logout]
+
+
+Processing MainController#index (for 127.0.0.1 at 2013-07-30 02:58:07) [GET]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+Rendering template within layouts/main
+Rendering main/index
+Rendered main/_logo (0.1ms)
+Rendered main/_menu (0.2ms)
+  [4;36;1mCity Load (0.1ms)[0m   [0;1mSELECT id, name, permalink FROM `cities` ORDER BY name ASC[0m
+  [4;35;1mCity Columns (1.0ms)[0m   [0mSHOW FIELDS FROM `cities`[0m
+Completed in 12ms (View: 7, DB: 1) | 200 OK [http://localhost/]
+
+
+Processing ClassifiedsController#new (for 127.0.0.1 at 2013-07-30 02:58:09) [GET]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mClassified Columns (2.0ms)[0m   [0mSHOW FIELDS FROM `classifieds`[0m
+Rendering template within layouts/classifieds
+Rendering classifieds/new
+  [4;36;1mCategory Load (0.8ms)[0m   [0;1mSELECT * FROM `categories` WHERE (`categories`.`parent_id` = '0') ORDER BY pos asc[0m
+  [4;35;1mCategory Columns (1.4ms)[0m   [0mSHOW FIELDS FROM `categories`[0m
+  [4;36;1mSubcategory Columns (1.3ms)[0m   [0;1mSHOW FIELDS FROM `categories`[0m
+  [4;35;1mSubcategory Load (0.8ms)[0m   [0mSELECT * FROM `categories` WHERE (`categories`.parent_id = 1) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+  [4;36;1mSubcategory Load (0.5ms)[0m   [0;1mSELECT * FROM `categories` WHERE (`categories`.parent_id = 2) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+  [4;35;1mSubcategory Load (0.5ms)[0m   [0mSELECT * FROM `categories` WHERE (`categories`.parent_id = 3) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+  [4;36;1mCity Load (0.2ms)[0m   [0;1mSELECT id, name, permalink FROM `cities` ORDER BY name ASC[0m
+  [4;35;1mCity Columns (1.4ms)[0m   [0mSHOW FIELDS FROM `cities`[0m
+  [4;36;1mSimpleCaptchaData Columns (1.3ms)[0m   [0;1mSHOW FIELDS FROM `simple_captcha_data`[0m
+  [4;35;1mSimpleCaptchaData Load (0.5ms)[0m   [0mSELECT * FROM `simple_captcha_data` WHERE (`simple_captcha_data`.`key` = '3d296dfaaad7e4c0d5f01bab34218a8788b2cd84') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mSimpleCaptchaData Create (0.8ms)[0m   [0mINSERT INTO `simple_captcha_data` (`updated_at`, `value`, `key`, `created_at`) VALUES('2013-07-30 06:58:09', '853251', '3d296dfaaad7e4c0d5f01bab34218a8788b2cd84', '2013-07-30 06:58:09')[0m
+  [4;36;1mSQL (63.7ms)[0m   [0;1mCOMMIT[0m
+Rendered simple_captcha/_simple_captcha (0.4ms)
+Completed in 209ms (View: 129, DB: 2) | 200 OK [http://localhost/classifieds/new]
+
+
+Processing SimpleCaptchaController#simple_captcha (for 127.0.0.1 at 2013-07-30 02:58:09) [GET]
+  Parameters: {"time"=>"1375167489", "image_style"=>"", "simple_captcha_key"=>"3d296dfaaad7e4c0d5f01bab34218a8788b2cd84", "distortion"=>""}
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSimpleCaptchaData Load (0.4ms)[0m   [0;1mSELECT * FROM `simple_captcha_data` WHERE (`simple_captcha_data`.`key` = '3d296dfaaad7e4c0d5f01bab34218a8788b2cd84') LIMIT 1[0m
+Sending data simple_captcha.jpg
+Completed in 142ms (View: 0, DB: 0) | 200 OK [http://localhost/simple_captcha/simple_captcha?distortion=&image_style=&simple_captcha_key=3d296dfaaad7e4c0d5f01bab34218a8788b2cd84&time=1375167489]
+
+
+Processing ClassifiedsController#create (for 127.0.0.1 at 2013-07-30 02:58:34) [POST]
+  Parameters: {"commit"=>"Post Classified Ad", "authenticity_token"=>"46ce649e662fb602bf9e133a639343c89fe2370c", "classified"=>{"title"=>"Books", "captcha_key"=>"3d296dfaaad7e4c0d5f01bab34218a8788b2cd84", "captcha"=>"853251", "description"=>"hjhhhhhhhhhhh", "adtype"=>"O", "phone"=>"", "city_id"=>"1", "image"=>"", "location"=>"Manhattan", "subcategory_id"=>"4", "email"=>"kaushik.tewari@gmail.com"}}
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mClassified Columns (1.2ms)[0m   [0;1mSHOW FIELDS FROM `classifieds`[0m
+  [4;35;1mSubcategory Columns (1.5ms)[0m   [0mSHOW FIELDS FROM `categories`[0m
+  [4;36;1mSubcategory Load (33.0ms)[0m   [0;1mSELECT * FROM `categories` WHERE (`categories`.`id` = 4) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+  [4;35;1mSQL (0.2ms)[0m   [0mBEGIN[0m
+  [4;36;1mClassified Exists (0.3ms)[0m   [0;1mSELECT `classifieds`.id FROM `classifieds` WHERE (permalink = 'books') LIMIT 1[0m
+  [4;35;1mSimpleCaptchaData Load (0.3ms)[0m   [0mSELECT * FROM `simple_captcha_data` WHERE (`simple_captcha_data`.`key` = '3d296dfaaad7e4c0d5f01bab34218a8788b2cd84') LIMIT 1[0m
+  [4;36;1mSimpleCaptchaData Load (20.5ms)[0m   [0;1mSELECT * FROM `simple_captcha_data` WHERE (updated_at < '2013-07-30 05:58:34') [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM `simple_captcha_data` WHERE (`simple_captcha_data`.`key` = '3d296dfaaad7e4c0d5f01bab34218a8788b2cd84') LIMIT 1[0m
+  [4;36;1mSimpleCaptchaData Destroy (19.2ms)[0m   [0;1mDELETE FROM `simple_captcha_data` WHERE `id` = 1[0m
+  [4;35;1mClassified Create (60.5ms)[0m   [0mINSERT INTO `classifieds` (`status`, `permalink`, `image_file_size`, `updated_at`, `title`, `activation_code`, `image_content_type`, `description`, `category_id`, `adtype`, `phone`, `city_id`, `location`, `email`, `subcategory_id`, `image_file_name`, `created_at`) VALUES(0, 'books', NULL, '2013-07-30 06:58:34', 'Books', '926ca546839b5ce5a7127aba2741d8ed9eead450', NULL, 'hjhhhhhhhhhhh', 1, 'O', '', 1, 'Manhattan', 'kaushik.tewari@gmail.com', 4, NULL, '2013-07-30 06:58:34')[0m
+[paperclip] Saving attachments.
+  [4;36;1mSQL (110.3ms)[0m   [0;1mCOMMIT[0m
+Sent mail to kaushik.tewari@gmail.com
+
+Date: Tue, 30 Jul 2013 02:58:34 -0400
+From: support@railslist.com
+To: kaushik.tewari@gmail.com
+Subject: railslist.com: Activate your Ad
+Mime-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+
+Thankyou for Posting @ railslist.com
+
+Ad Title: Books
+
+Now you will have to Activate it using the links provided below. Either Click the links (or) Copy & Paste them in your browser.
+
+Activate Ad: http://localhost:3000/activate/926ca546839b5ce5a7127aba2741d8ed9eead450
+      Edit Ad: http://localhost:3000/edit/926ca546839b5ce5a7127aba2741d8ed9eead450
+
+_____________________________________________________________________________
+(Delete link will DELETE YOUR AD INSTANTLY WITHOUT ANY CONFIRMATION (or) WARNING!)
+
+Delete Ad: http://localhost:3000/delete/926ca546839b5ce5a7127aba2741d8ed9eead450
+_____________________________________________________________________________
+
+
+Please store this email safe, you need it to Update / Remove your Ad.  
+
+
+sincerely
+
+railslist.com
+
+Rendering /home/hp/Documents/Rails_projects/craigslist/public/404.html
+
+
+Processing MainController#index (for 127.0.0.1 at 2013-07-30 02:58:40) [GET]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+Rendering template within layouts/main
+Rendering main/index
+Rendered main/_logo (0.1ms)
+Rendered main/_menu (0.2ms)
+  [4;36;1mCity Load (0.2ms)[0m   [0;1mSELECT id, name, permalink FROM `cities` ORDER BY name ASC[0m
+  [4;35;1mCity Columns (0.8ms)[0m   [0mSHOW FIELDS FROM `cities`[0m
+Completed in 15ms (View: 9, DB: 1) | 200 OK [http://localhost/]
+
+
+Processing ClassifiedsController#new (for 127.0.0.1 at 2013-07-30 02:58:42) [GET]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mClassified Columns (1.4ms)[0m   [0mSHOW FIELDS FROM `classifieds`[0m
+Rendering template within layouts/classifieds
+Rendering classifieds/new
+  [4;36;1mCategory Load (0.2ms)[0m   [0;1mSELECT * FROM `categories` WHERE (`categories`.`parent_id` = '0') ORDER BY pos asc[0m
+  [4;35;1mCategory Columns (1.2ms)[0m   [0mSHOW FIELDS FROM `categories`[0m
+  [4;36;1mSubcategory Columns (0.8ms)[0m   [0;1mSHOW FIELDS FROM `categories`[0m
+  [4;35;1mSubcategory Load (0.1ms)[0m   [0mSELECT * FROM `categories` WHERE (`categories`.parent_id = 1) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+  [4;36;1mSubcategory Load (0.1ms)[0m   [0;1mSELECT * FROM `categories` WHERE (`categories`.parent_id = 2) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+  [4;35;1mSubcategory Load (0.1ms)[0m   [0mSELECT * FROM `categories` WHERE (`categories`.parent_id = 3) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+  [4;36;1mCity Load (0.1ms)[0m   [0;1mSELECT id, name, permalink FROM `cities` ORDER BY name ASC[0m
+  [4;35;1mCity Columns (0.8ms)[0m   [0mSHOW FIELDS FROM `cities`[0m
+  [4;36;1mSimpleCaptchaData Load (0.3ms)[0m   [0;1mSELECT * FROM `simple_captcha_data` WHERE (`simple_captcha_data`.`key` = '3d296dfaaad7e4c0d5f01bab34218a8788b2cd84') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mSimpleCaptchaData Create (22.1ms)[0m   [0;1mINSERT INTO `simple_captcha_data` (`updated_at`, `value`, `key`, `created_at`) VALUES('2013-07-30 06:58:42', '340134', '3d296dfaaad7e4c0d5f01bab34218a8788b2cd84', '2013-07-30 06:58:42')[0m
+  [4;35;1mSQL (71.3ms)[0m   [0mCOMMIT[0m
+Rendered simple_captcha/_simple_captcha (0.4ms)
+Completed in 155ms (View: 141, DB: 2) | 200 OK [http://localhost/classifieds/new]
+
+
+Processing SimpleCaptchaController#simple_captcha (for 127.0.0.1 at 2013-07-30 02:58:42) [GET]
+  Parameters: {"time"=>"1375167522", "image_style"=>"", "simple_captcha_key"=>"3d296dfaaad7e4c0d5f01bab34218a8788b2cd84", "distortion"=>""}
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mSimpleCaptchaData Load (0.3ms)[0m   [0mSELECT * FROM `simple_captcha_data` WHERE (`simple_captcha_data`.`key` = '3d296dfaaad7e4c0d5f01bab34218a8788b2cd84') LIMIT 1[0m
+Sending data simple_captcha.jpg
+Completed in 18ms (View: 0, DB: 0) | 200 OK [http://localhost/simple_captcha/simple_captcha?distortion=&image_style=&simple_captcha_key=3d296dfaaad7e4c0d5f01bab34218a8788b2cd84&time=1375167522]
+
+
+Processing ClassifiedsController#create (for 127.0.0.1 at 2013-07-30 02:59:06) [POST]
+  Parameters: {"commit"=>"Post Classified Ad", "authenticity_token"=>"46ce649e662fb602bf9e133a639343c89fe2370c", "classified"=>{"title"=>"Tickets to Concert", "captcha_key"=>"3d296dfaaad7e4c0d5f01bab34218a8788b2cd84", "captcha"=>"340134", "description"=>"macdfksdg", "adtype"=>"O", "phone"=>"", "city_id"=>"1", "image"=>"", "location"=>"United States", "subcategory_id"=>"6", "email"=>"kkt2123@columbia.edu"}}
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mClassified Columns (1.2ms)[0m   [0mSHOW FIELDS FROM `classifieds`[0m
+  [4;36;1mSubcategory Columns (1.4ms)[0m   [0;1mSHOW FIELDS FROM `categories`[0m
+  [4;35;1mSubcategory Load (34.8ms)[0m   [0mSELECT * FROM `categories` WHERE (`categories`.`id` = 6) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClassified Exists (0.4ms)[0m   [0mSELECT `classifieds`.id FROM `classifieds` WHERE (permalink = 'tickets-to-concert') LIMIT 1[0m
+  [4;36;1mSimpleCaptchaData Load (0.3ms)[0m   [0;1mSELECT * FROM `simple_captcha_data` WHERE (`simple_captcha_data`.`key` = '3d296dfaaad7e4c0d5f01bab34218a8788b2cd84') LIMIT 1[0m
+  [4;35;1mSimpleCaptchaData Load (0.3ms)[0m   [0mSELECT * FROM `simple_captcha_data` WHERE (updated_at < '2013-07-30 05:59:06') [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM `simple_captcha_data` WHERE (`simple_captcha_data`.`key` = '3d296dfaaad7e4c0d5f01bab34218a8788b2cd84') LIMIT 1[0m
+  [4;35;1mSimpleCaptchaData Destroy (24.4ms)[0m   [0mDELETE FROM `simple_captcha_data` WHERE `id` = 2[0m
+  [4;36;1mClassified Create (21.3ms)[0m   [0;1mINSERT INTO `classifieds` (`status`, `permalink`, `image_file_size`, `updated_at`, `title`, `activation_code`, `image_content_type`, `description`, `category_id`, `adtype`, `phone`, `city_id`, `location`, `email`, `subcategory_id`, `image_file_name`, `created_at`) VALUES(0, 'tickets-to-concert', NULL, '2013-07-30 06:59:06', 'Tickets to Concert', '241dee2ad83d5b5e588e153ab704ea7080fd264c', NULL, 'macdfksdg', 3, 'O', '', 1, 'United States', 'kkt2123@columbia.edu', 6, NULL, '2013-07-30 06:59:06')[0m
+[paperclip] Saving attachments.
+  [4;35;1mSQL (61.8ms)[0m   [0mCOMMIT[0m
+Sent mail to kkt2123@columbia.edu
+
+Date: Tue, 30 Jul 2013 02:59:06 -0400
+From: support@railslist.com
+To: kkt2123@columbia.edu
+Subject: railslist.com: Activate your Ad
+Mime-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+
+Thankyou for Posting @ railslist.com
+
+Ad Title: Tickets to Concert
+
+Now you will have to Activate it using the links provided below. Either Click the links (or) Copy & Paste them in your browser.
+
+Activate Ad: http://localhost:3000/activate/241dee2ad83d5b5e588e153ab704ea7080fd264c
+      Edit Ad: http://localhost:3000/edit/241dee2ad83d5b5e588e153ab704ea7080fd264c
+
+_____________________________________________________________________________
+(Delete link will DELETE YOUR AD INSTANTLY WITHOUT ANY CONFIRMATION (or) WARNING!)
+
+Delete Ad: http://localhost:3000/delete/241dee2ad83d5b5e588e153ab704ea7080fd264c
+_____________________________________________________________________________
+
+
+Please store this email safe, you need it to Update / Remove your Ad.  
+
+
+sincerely
+
+railslist.com
+
+Rendering /home/hp/Documents/Rails_projects/craigslist/public/404.html
+
+
+Processing UsersController#show (for 127.0.0.1 at 2013-07-30 02:59:10) [GET]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+Rendering users/show
+Completed in 6ms (View: 4, DB: 0) | 200 OK [http://localhost/user]
+
+
+Processing UsersController#create (for 127.0.0.1 at 2013-07-30 02:59:15) [POST]
+  Parameters: {"commit"=>"login", "authenticity_token"=>"46ce649e662fb602bf9e133a639343c89fe2370c", "password"=>"railslist"}
+  [4;35;1mSQL (0.2ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+Redirected to /categories
+Completed in 3ms (DB: 0) | 302 Found [http://localhost/user]
+
+
+Processing CategoriesController#index (for 127.0.0.1 at 2013-07-30 02:59:15) [GET]
+  [4;36;1mSQL (0.3ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+Rendering template within layouts/main
+Rendering categories/index
+Rendered main/_logo (0.1ms)
+Rendered users/_menu (0.3ms)
+  [4;35;1mCategory Load (0.1ms)[0m   [0mSELECT * FROM `categories` WHERE (`categories`.`parent_id` = '0') ORDER BY pos asc[0m
+  [4;36;1mCategory Columns (0.9ms)[0m   [0;1mSHOW FIELDS FROM `categories`[0m
+Completed in 26ms (View: 17, DB: 0) | 200 OK [http://localhost/categories]
+
+
+Processing ClassifiedsController#index (for 127.0.0.1 at 2013-07-30 02:59:17) [GET]
+  [4;35;1mSQL (0.2ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mClassified Load (0.4ms)[0m   [0;1mSELECT * FROM `classifieds` ORDER BY created_at DESC LIMIT 0, 20[0m
+Rendering template within layouts/main
+Rendering classifieds/index
+Rendered main/_logo (0.1ms)
+Rendered users/_menu (0.3ms)
+  [4;35;1mSubcategory Columns (0.9ms)[0m   [0mSHOW FIELDS FROM `categories`[0m
+  [4;36;1mSubcategory Load (0.1ms)[0m   [0;1mSELECT * FROM `categories` WHERE ( (`categories`.`type` = 'Subcategory' ) ) ORDER BY name asc[0m
+  [4;35;1mClassified Columns (1.7ms)[0m   [0mSHOW FIELDS FROM `classifieds`[0m
+  [4;36;1mCategory Columns (1.4ms)[0m   [0;1mSHOW FIELDS FROM `categories`[0m
+  [4;35;1mCategory Load (0.1ms)[0m   [0mSELECT * FROM `categories` WHERE (`categories`.`id` = 3) [0m
+  [4;36;1mSubcategory Load (0.1ms)[0m   [0;1mSELECT * FROM `categories` WHERE (`categories`.`id` = 6) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+  [4;35;1mCategory Load (0.1ms)[0m   [0mSELECT * FROM `categories` WHERE (`categories`.`id` = 1) [0m
+  [4;36;1mSubcategory Load (0.1ms)[0m   [0;1mSELECT * FROM `categories` WHERE (`categories`.`id` = 4) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+Completed in 35ms (View: 22, DB: 5) | 200 OK [http://localhost/classifieds]
+
+
+Processing SubcategoriesController#index (for 127.0.0.1 at 2013-07-30 02:59:26) [GET]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSubcategory Columns (1.1ms)[0m   [0;1mSHOW FIELDS FROM `categories`[0m
+  [4;35;1mSubcategory Load (0.2ms)[0m   [0mSELECT * FROM `categories` WHERE ( (`categories`.`type` = 'Subcategory' ) ) ORDER BY name asc[0m
+Rendering template within layouts/main
+Rendering subcategories/index
+Rendered main/_logo (0.3ms)
+Rendered users/_menu (0.3ms)
+  [4;36;1mCategory Columns (1.3ms)[0m   [0;1mSHOW FIELDS FROM `categories`[0m
+  [4;35;1mCategory Load (0.1ms)[0m   [0mSELECT * FROM `categories` WHERE (`categories`.`id` = 2) [0m
+  [4;36;1mCategory Load (0.1ms)[0m   [0;1mSELECT * FROM `categories` WHERE (`categories`.`id` = 1) [0m
+  [4;35;1mCategory Load (0.1ms)[0m   [0mSELECT * FROM `categories` WHERE (`categories`.`id` = 3) [0m
+Completed in 28ms (View: 18, DB: 1) | 200 OK [http://localhost/subcategories]
+
+
+Processing CategoriesController#index (for 127.0.0.1 at 2013-07-30 02:59:27) [GET]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+Rendering template within layouts/main
+Rendering categories/index
+Rendered main/_logo (0.2ms)
+Rendered users/_menu (0.3ms)
+  [4;35;1mCategory Load (0.2ms)[0m   [0mSELECT * FROM `categories` WHERE (`categories`.`parent_id` = '0') ORDER BY pos asc[0m
+  [4;36;1mCategory Columns (0.8ms)[0m   [0;1mSHOW FIELDS FROM `categories`[0m
+Completed in 82ms (View: 12, DB: 0) | 200 OK [http://localhost/categories]
+
+
+Processing CitiesController#index (for 127.0.0.1 at 2013-07-30 02:59:28) [GET]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+Rendering template within layouts/main
+Rendering cities/index
+Rendered main/_logo (0.1ms)
+Rendered users/_menu (0.3ms)
+  [4;36;1mCity Load (0.1ms)[0m   [0;1mSELECT id, name, permalink FROM `cities` ORDER BY name ASC[0m
+  [4;35;1mCity Columns (1.1ms)[0m   [0mSHOW FIELDS FROM `cities`[0m
+Completed in 19ms (View: 13, DB: 1) | 200 OK [http://localhost/cities]
+
+
+Processing MainController#index (for 127.0.0.1 at 2013-07-30 02:59:29) [GET]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+Rendering template within layouts/main
+Rendering main/index
+Rendered main/_logo (0.1ms)
+Rendered main/_menu (0.2ms)
+  [4;35;1mCity Load (0.1ms)[0m   [0mSELECT id, name, permalink FROM `cities` ORDER BY name ASC[0m
+  [4;36;1mCity Columns (0.7ms)[0m   [0;1mSHOW FIELDS FROM `cities`[0m
+Completed in 14ms (View: 8, DB: 1) | 200 OK [http://localhost/]
+
+
+Processing MainController#index (for 127.0.0.1 at 2013-07-30 03:02:44) [GET]
+  [4;35;1mSQL (0.3ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+Rendering template within layouts/main
+Rendering main/index
+Rendered main/_logo (0.1ms)
+Rendered main/_menu (0.2ms)
+  [4;36;1mCity Load (0.2ms)[0m   [0;1mSELECT id, name, permalink FROM `cities` ORDER BY name ASC[0m
+  [4;35;1mCity Columns (1.0ms)[0m   [0mSHOW FIELDS FROM `cities`[0m
+Completed in 15ms (View: 8, DB: 1) | 200 OK [http://localhost/]
+
+
+Processing MainController#city (for 127.0.0.1 at 2013-07-30 03:02:45) [GET]
+  Parameters: {"permalink_1"=>"columbia-university"}
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mCity Load (0.5ms)[0m   [0mSELECT * FROM `cities` WHERE (`cities`.`permalink` = 'columbia-university') LIMIT 1[0m
+  [4;36;1mCity Load (0.4ms)[0m   [0;1mSELECT * FROM `cities` LIMIT 87[0m
+  [4;35;1mCity Columns (1.2ms)[0m   [0mSHOW FIELDS FROM `cities`[0m
+Rendering template within layouts/main
+Rendering main/city
+Rendered main/_logo (0.3ms)
+Rendered main/_menu (0.4ms)
+  [4;36;1mCategory Load (0.3ms)[0m   [0;1mSELECT * FROM `categories` WHERE (`categories`.`parent_id` = '0') ORDER BY pos asc[0m
+  [4;35;1mCategory Columns (1.5ms)[0m   [0mSHOW FIELDS FROM `categories`[0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM `categories` WHERE (`categories`.`parent_id` = '0') ORDER BY pos asc[0m
+  [4;35;1mSubcategory Columns (1.5ms)[0m   [0mSHOW FIELDS FROM `categories`[0m
+  [4;36;1mSubcategory Load (0.2ms)[0m   [0;1mSELECT * FROM `categories` WHERE (`categories`.parent_id = 1) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+  [4;35;1mSubcategory Load (0.1ms)[0m   [0mSELECT * FROM `categories` WHERE (`categories`.parent_id = 2) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+  [4;36;1mSubcategory Load (0.2ms)[0m   [0;1mSELECT * FROM `categories` WHERE (`categories`.parent_id = 3) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+Rendered main/_citylist (0.5ms)
+Completed in 68ms (View: 51, DB: 2) | 200 OK [http://localhost/columbia-university]
+
+
+Processing MainController#category (for 127.0.0.1 at 2013-07-30 03:02:48) [GET]
+  Parameters: {"permalink_1"=>"columbia-university", "permalink_2"=>"engineering"}
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mCity Load (0.2ms)[0m   [0;1mSELECT * FROM `cities` WHERE (`cities`.`permalink` = 'columbia-university') LIMIT 1[0m
+  [4;35;1mCategory Load (0.6ms)[0m   [0mSELECT * FROM `categories` WHERE (`categories`.`permalink` = 'engineering') LIMIT 1[0m
+  [4;36;1mCategory Columns (1.6ms)[0m   [0;1mSHOW FIELDS FROM `categories`[0m
+  [4;35;1mSubcategory Columns (1.6ms)[0m   [0mSHOW FIELDS FROM `categories`[0m
+  [4;36;1mCity Columns (1.1ms)[0m   [0;1mSHOW FIELDS FROM `cities`[0m
+  [4;35;1mClassified Load (21.8ms)[0m   [0mSELECT * FROM `classifieds` WHERE (`classifieds`.`status` = 1 AND `classifieds`.`city_id` = 1 AND `classifieds`.`subcategory_id` = 4) ORDER BY created_at DESC LIMIT 0, 10[0m
+Rendering template within layouts/category
+Rendering main/category
+  [4;36;1mSubcategory Load (0.6ms)[0m   [0;1mSELECT * FROM `categories` WHERE (parent_id = 1) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+Completed in 89ms (View: 26, DB: 28) | 200 OK [http://localhost/columbia-university/engineering]
+
+
+Processing MainController#category (for 127.0.0.1 at 2013-07-30 03:02:51) [GET]
+  Parameters: {"permalink_1"=>"columbia-university", "permalink_2"=>"contemporary-civilisation"}
+  [4;35;1mSQL (0.2ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mCity Load (0.1ms)[0m   [0;1mSELECT * FROM `cities` WHERE (`cities`.`permalink` = 'columbia-university') LIMIT 1[0m
+  [4;35;1mCategory Load (0.4ms)[0m   [0mSELECT * FROM `categories` WHERE (`categories`.`permalink` = 'contemporary-civilisation') LIMIT 1[0m
+  [4;36;1mCategory Columns (0.8ms)[0m   [0;1mSHOW FIELDS FROM `categories`[0m
+  [4;35;1mSubcategory Columns (1.5ms)[0m   [0mSHOW FIELDS FROM `categories`[0m
+  [4;36;1mCity Columns (1.1ms)[0m   [0;1mSHOW FIELDS FROM `cities`[0m
+  [4;35;1mClassified Load (0.6ms)[0m   [0mSELECT * FROM `classifieds` WHERE (`classifieds`.`status` = 1 AND `classifieds`.`city_id` = 1 AND `classifieds`.`subcategory_id` = 5) ORDER BY created_at DESC LIMIT 0, 10[0m
+Rendering template within layouts/category
+Rendering main/category
+  [4;36;1mSubcategory Load (0.5ms)[0m   [0;1mSELECT * FROM `categories` WHERE (parent_id = 2) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+Completed in 34ms (View: 11, DB: 5) | 200 OK [http://localhost/columbia-university/contemporary-civilisation]
+
+
+Processing MainController#category (for 127.0.0.1 at 2013-07-30 03:02:54) [GET]
+  Parameters: {"permalink_1"=>"columbia-university", "permalink_2"=>"macklemore"}
+  [4;35;1mSQL (0.2ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mCity Load (0.2ms)[0m   [0;1mSELECT * FROM `cities` WHERE (`cities`.`permalink` = 'columbia-university') LIMIT 1[0m
+  [4;35;1mCategory Load (0.4ms)[0m   [0mSELECT * FROM `categories` WHERE (`categories`.`permalink` = 'macklemore') LIMIT 1[0m
+  [4;36;1mCategory Columns (1.3ms)[0m   [0;1mSHOW FIELDS FROM `categories`[0m
+  [4;35;1mSubcategory Columns (1.4ms)[0m   [0mSHOW FIELDS FROM `categories`[0m
+  [4;36;1mCity Columns (1.1ms)[0m   [0;1mSHOW FIELDS FROM `cities`[0m
+  [4;35;1mClassified Load (0.5ms)[0m   [0mSELECT * FROM `classifieds` WHERE (`classifieds`.`status` = 1 AND `classifieds`.`city_id` = 1 AND `classifieds`.`subcategory_id` = 6) ORDER BY created_at DESC LIMIT 0, 10[0m
+Rendering template within layouts/category
+Rendering main/category
+  [4;36;1mSubcategory Load (26.0ms)[0m   [0;1mSELECT * FROM `categories` WHERE (parent_id = 3) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+Completed in 66ms (View: 10, DB: 31) | 200 OK [http://localhost/columbia-university/macklemore]
+
+
+Processing MainController#index (for 127.0.0.1 at 2013-07-30 03:19:34) [GET]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+Rendering template within layouts/main
+Rendering main/index
+Rendered main/_logo (0.1ms)
+Rendered main/_menu (0.2ms)
+  [4;36;1mCity Load (0.2ms)[0m   [0;1mSELECT id, name, permalink FROM `cities` ORDER BY name ASC[0m
+  [4;35;1mCity Columns (1.2ms)[0m   [0mSHOW FIELDS FROM `cities`[0m
+Completed in 97ms (View: 89, DB: 1) | 200 OK [http://localhost/]
+
+
+Processing UsersController#show (for 127.0.0.1 at 2013-07-30 03:19:36) [GET]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+Redirected to /categories
+Completed in 2ms (DB: 0) | 302 Found [http://localhost/user]
+
+
+Processing CategoriesController#index (for 127.0.0.1 at 2013-07-30 03:19:36) [GET]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+Rendering template within layouts/main
+Rendering categories/index
+Rendered main/_logo (0.1ms)
+Rendered users/_menu (0.3ms)
+  [4;36;1mCategory Load (0.1ms)[0m   [0;1mSELECT * FROM `categories` WHERE (`categories`.`parent_id` = '0') ORDER BY pos asc[0m
+  [4;35;1mCategory Columns (0.8ms)[0m   [0mSHOW FIELDS FROM `categories`[0m
+Completed in 19ms (View: 14, DB: 0) | 200 OK [http://localhost/categories]
+
+
+Processing ClassifiedsController#index (for 127.0.0.1 at 2013-07-30 03:19:41) [GET]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mClassified Load (0.1ms)[0m   [0mSELECT * FROM `classifieds` ORDER BY created_at DESC LIMIT 0, 20[0m
+Rendering template within layouts/main
+Rendering classifieds/index
+Rendered main/_logo (0.1ms)
+Rendered users/_menu (0.3ms)
+  [4;36;1mSubcategory Columns (1.0ms)[0m   [0;1mSHOW FIELDS FROM `categories`[0m
+  [4;35;1mSubcategory Load (0.1ms)[0m   [0mSELECT * FROM `categories` WHERE ( (`categories`.`type` = 'Subcategory' ) ) ORDER BY name asc[0m
+  [4;36;1mClassified Columns (1.6ms)[0m   [0;1mSHOW FIELDS FROM `classifieds`[0m
+  [4;35;1mCategory Columns (1.2ms)[0m   [0mSHOW FIELDS FROM `categories`[0m
+  [4;36;1mCategory Load (0.1ms)[0m   [0;1mSELECT * FROM `categories` WHERE (`categories`.`id` = 3) [0m
+  [4;35;1mSubcategory Load (0.2ms)[0m   [0mSELECT * FROM `categories` WHERE (`categories`.`id` = 6) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+  [4;36;1mCategory Load (0.1ms)[0m   [0;1mSELECT * FROM `categories` WHERE (`categories`.`id` = 1) [0m
+  [4;35;1mSubcategory Load (0.1ms)[0m   [0mSELECT * FROM `categories` WHERE (`categories`.`id` = 4) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+Completed in 50ms (View: 39, DB: 5) | 200 OK [http://localhost/classifieds]
+
+
+Processing MainController#index (for 127.0.0.1 at 2013-07-30 03:19:46) [GET]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+Rendering template within layouts/main
+Rendering main/index
+Rendered main/_logo (0.1ms)
+Rendered main/_menu (0.2ms)
+  [4;35;1mCity Load (0.1ms)[0m   [0mSELECT id, name, permalink FROM `cities` ORDER BY name ASC[0m
+  [4;36;1mCity Columns (1.0ms)[0m   [0;1mSHOW FIELDS FROM `cities`[0m
+Completed in 12ms (View: 7, DB: 1) | 200 OK [http://localhost/]
+
+
+Processing MainController#index (for 127.0.0.1 at 2013-07-30 03:24:48) [GET]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+Rendering template within layouts/main
+Rendering main/index
+Rendered main/_logo (0.1ms)
+Rendered main/_menu (0.2ms)
+  [4;35;1mCity Load (0.2ms)[0m   [0mSELECT id, name, permalink FROM `cities` ORDER BY name ASC[0m
+  [4;36;1mCity Columns (0.9ms)[0m   [0;1mSHOW FIELDS FROM `cities`[0m
+Completed in 68ms (View: 9, DB: 1) | 200 OK [http://localhost/]
+
+
+Processing MainController#index (for 127.0.0.1 at 2013-07-30 03:24:50) [GET]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+Rendering template within layouts/main
+Rendering main/index
+Rendered main/_logo (0.1ms)
+Rendered main/_menu (0.2ms)
+  [4;36;1mCity Load (0.2ms)[0m   [0;1mSELECT id, name, permalink FROM `cities` ORDER BY name ASC[0m
+  [4;35;1mCity Columns (0.8ms)[0m   [0mSHOW FIELDS FROM `cities`[0m
+Completed in 14ms (View: 8, DB: 1) | 200 OK [http://localhost/]
+
+
+Processing MainController#index (for 127.0.0.1 at 2013-07-30 03:25:01) [GET]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+Rendering template within layouts/main
+Rendering main/index
+Rendered main/_logo (0.1ms)
+Rendered main/_menu (0.2ms)
+  [4;35;1mCity Load (0.1ms)[0m   [0mSELECT id, name, permalink FROM `cities` ORDER BY name ASC[0m
+  [4;36;1mCity Columns (0.9ms)[0m   [0;1mSHOW FIELDS FROM `cities`[0m
+Completed in 12ms (View: 7, DB: 1) | 200 OK [http://localhost/]
+
+
+Processing MainController#index (for 127.0.0.1 at 2013-07-30 03:40:02) [GET]
+  [4;36;1mSQL (184.7ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+Rendering template within layouts/main
+Rendering main/index
+Rendered main/_logo (0.3ms)
+Rendered main/_menu (0.3ms)
+  [4;35;1mCity Load (12.4ms)[0m   [0mSELECT id, name, permalink FROM `cities` ORDER BY name ASC[0m
+  [4;36;1mCity Columns (1.7ms)[0m   [0;1mSHOW FIELDS FROM `cities`[0m
+Completed in 90ms (View: 62, DB: 199) | 200 OK [http://localhost/]
+
+
+Processing ClassifiedsController#new (for 127.0.0.1 at 2013-07-30 03:40:06) [GET]
+  [4;35;1mSQL (0.2ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mClassified Columns (1.9ms)[0m   [0;1mSHOW FIELDS FROM `classifieds`[0m
+Rendering template within layouts/classifieds
+Rendering classifieds/new
+  [4;35;1mCategory Load (0.2ms)[0m   [0mSELECT * FROM `categories` WHERE (`categories`.`parent_id` = '0') ORDER BY pos asc[0m
+  [4;36;1mCategory Columns (1.4ms)[0m   [0;1mSHOW FIELDS FROM `categories`[0m
+  [4;35;1mSubcategory Columns (1.2ms)[0m   [0mSHOW FIELDS FROM `categories`[0m
+  [4;36;1mSubcategory Load (0.1ms)[0m   [0;1mSELECT * FROM `categories` WHERE (`categories`.parent_id = 1) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+  [4;35;1mSubcategory Load (0.1ms)[0m   [0mSELECT * FROM `categories` WHERE (`categories`.parent_id = 2) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+  [4;36;1mSubcategory Load (0.1ms)[0m   [0;1mSELECT * FROM `categories` WHERE (`categories`.parent_id = 3) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+  [4;35;1mCity Load (0.1ms)[0m   [0mSELECT id, name, permalink FROM `cities` ORDER BY name ASC[0m
+  [4;36;1mCity Columns (0.8ms)[0m   [0;1mSHOW FIELDS FROM `cities`[0m
+  [4;35;1mSimpleCaptchaData Columns (0.8ms)[0m   [0mSHOW FIELDS FROM `simple_captcha_data`[0m
+  [4;36;1mSimpleCaptchaData Load (2.1ms)[0m   [0;1mSELECT * FROM `simple_captcha_data` WHERE (`simple_captcha_data`.`key` = '3d296dfaaad7e4c0d5f01bab34218a8788b2cd84') LIMIT 1[0m
+  [4;35;1mSQL (0.5ms)[0m   [0mBEGIN[0m
+  [4;36;1mSimpleCaptchaData Create (18.4ms)[0m   [0;1mINSERT INTO `simple_captcha_data` (`updated_at`, `value`, `key`, `created_at`) VALUES('2013-07-30 07:40:06', '278557', '3d296dfaaad7e4c0d5f01bab34218a8788b2cd84', '2013-07-30 07:40:06')[0m
+  [4;35;1mSQL (69.2ms)[0m   [0mCOMMIT[0m
+Rendered simple_captcha/_simple_captcha (0.3ms)
+Completed in 174ms (View: 163, DB: 2) | 200 OK [http://localhost/classifieds/new]
+
+
+Processing SimpleCaptchaController#simple_captcha (for 127.0.0.1 at 2013-07-30 03:40:06) [GET]
+  Parameters: {"time"=>"1375170006", "image_style"=>"", "simple_captcha_key"=>"3d296dfaaad7e4c0d5f01bab34218a8788b2cd84", "distortion"=>""}
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mSimpleCaptchaData Load (0.4ms)[0m   [0mSELECT * FROM `simple_captcha_data` WHERE (`simple_captcha_data`.`key` = '3d296dfaaad7e4c0d5f01bab34218a8788b2cd84') LIMIT 1[0m
+Sending data simple_captcha.jpg
+Completed in 599ms (View: 0, DB: 0) | 200 OK [http://localhost/simple_captcha/simple_captcha?distortion=&image_style=&simple_captcha_key=3d296dfaaad7e4c0d5f01bab34218a8788b2cd84&time=1375170006]
+
+
+Processing ClassifiedsController#create (for 127.0.0.1 at 2013-07-30 03:40:38) [POST]
+  Parameters: {"commit"=>"Post Classified Ad", "authenticity_token"=>"46ce649e662fb602bf9e133a639343c89fe2370c", "classified"=>{"title"=>"Buy Guitar", "captcha_key"=>"3d296dfaaad7e4c0d5f01bab34218a8788b2cd84", "captcha"=>"278557", "description"=>"Buy cheap guitar", "adtype"=>"O", "phone"=>"", "city_id"=>"1", "image"=>"", "location"=>"Harmony", "subcategory_id"=>"4", "email"=>"kaushik.tewari@gmail.com"}}
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mClassified Columns (1.0ms)[0m   [0mSHOW FIELDS FROM `classifieds`[0m
+  [4;36;1mSubcategory Columns (0.9ms)[0m   [0;1mSHOW FIELDS FROM `categories`[0m
+  [4;35;1mSubcategory Load (0.1ms)[0m   [0mSELECT * FROM `categories` WHERE (`categories`.`id` = 4) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClassified Exists (11.2ms)[0m   [0mSELECT `classifieds`.id FROM `classifieds` WHERE (permalink = 'buy-guitar') LIMIT 1[0m
+  [4;36;1mSimpleCaptchaData Load (0.5ms)[0m   [0;1mSELECT * FROM `simple_captcha_data` WHERE (`simple_captcha_data`.`key` = '3d296dfaaad7e4c0d5f01bab34218a8788b2cd84') LIMIT 1[0m
+  [4;35;1mSimpleCaptchaData Load (0.8ms)[0m   [0mSELECT * FROM `simple_captcha_data` WHERE (updated_at < '2013-07-30 06:40:39') [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM `simple_captcha_data` WHERE (`simple_captcha_data`.`key` = '3d296dfaaad7e4c0d5f01bab34218a8788b2cd84') LIMIT 1[0m
+  [4;35;1mSimpleCaptchaData Destroy (1.3ms)[0m   [0mDELETE FROM `simple_captcha_data` WHERE `id` = 3[0m
+  [4;36;1mClassified Create (0.8ms)[0m   [0;1mINSERT INTO `classifieds` (`status`, `permalink`, `image_file_size`, `updated_at`, `title`, `activation_code`, `image_content_type`, `description`, `category_id`, `adtype`, `phone`, `city_id`, `location`, `email`, `subcategory_id`, `image_file_name`, `created_at`) VALUES(0, 'buy-guitar', NULL, '2013-07-30 07:40:39', 'Buy Guitar', 'bdd65d50c10cdc3a60fad6c6334f58be7051afa9', NULL, 'Buy cheap guitar', 1, 'O', '', 1, 'Harmony', 'kaushik.tewari@gmail.com', 4, NULL, '2013-07-30 07:40:39')[0m
+[paperclip] Saving attachments.
+  [4;35;1mSQL (68.8ms)[0m   [0mCOMMIT[0m
+Sent mail to kaushik.tewari@gmail.com
+
+Date: Tue, 30 Jul 2013 03:40:39 -0400
+From: support@railslist.com
+To: kaushik.tewari@gmail.com
+Subject: railslist.com: Activate your Ad
+Mime-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+
+Thankyou for Posting @ railslist.com
+
+Ad Title: Buy Guitar
+
+Now you will have to Activate it using the links provided below. Either Click the links (or) Copy & Paste them in your browser.
+
+Activate Ad: http://localhost:3000/activate/bdd65d50c10cdc3a60fad6c6334f58be7051afa9
+      Edit Ad: http://localhost:3000/edit/bdd65d50c10cdc3a60fad6c6334f58be7051afa9
+
+_____________________________________________________________________________
+(Delete link will DELETE YOUR AD INSTANTLY WITHOUT ANY CONFIRMATION (or) WARNING!)
+
+Delete Ad: http://localhost:3000/delete/bdd65d50c10cdc3a60fad6c6334f58be7051afa9
+_____________________________________________________________________________
+
+
+Please store this email safe, you need it to Update / Remove your Ad.  
+
+
+sincerely
+
+railslist.com
+
+Rendering /home/hp/Documents/Rails_projects/craigslist/public/404.html
+
+
+Processing MainController#activate (for 127.0.0.1 at 2013-07-30 03:47:21) [GET]
+  Parameters: {"activation_code"=>"926ca546839b5ce5a7127aba2741d8ed9eead450"}
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mClassified Columns (1.9ms)[0m   [0mSHOW FIELDS FROM `classifieds`[0m
+  [4;36;1mClassified Load (0.6ms)[0m   [0;1mSELECT * FROM `classifieds` WHERE (`classifieds`.`activation_code` = '926ca546839b5ce5a7127aba2741d8ed9eead450') LIMIT 1[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mBEGIN[0m
+  [4;36;1mClassified Update (32.8ms)[0m   [0;1mUPDATE `classifieds` SET `status` = 1, `updated_at` = '2013-07-30 07:47:21' WHERE `id` = 1[0m
+[paperclip] Saving attachments.
+  [4;35;1mSQL (95.4ms)[0m   [0mCOMMIT[0m
+Redirected to /
+Completed in 144ms (DB: 131) | 302 Found [http://localhost/activate/926ca546839b5ce5a7127aba2741d8ed9eead450]
+
+
+Processing MainController#index (for 127.0.0.1 at 2013-07-30 03:47:21) [GET]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+Rendering template within layouts/main
+Rendering main/index
+Rendered main/_logo (0.2ms)
+Rendered main/_menu (0.3ms)
+  [4;35;1mCity Load (0.2ms)[0m   [0mSELECT id, name, permalink FROM `cities` ORDER BY name ASC[0m
+  [4;36;1mCity Columns (0.8ms)[0m   [0;1mSHOW FIELDS FROM `cities`[0m
+Completed in 28ms (View: 18, DB: 1) | 200 OK [http://localhost/]
+
+
+Processing MainController#activate (for 127.0.0.1 at 2013-07-30 03:48:08) [GET]
+  Parameters: {"activation_code"=>"926ca546839b5ce5a7127aba2741d8ed9eead450"}
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mClassified Columns (1.1ms)[0m   [0;1mSHOW FIELDS FROM `classifieds`[0m
+  [4;35;1mClassified Load (0.4ms)[0m   [0mSELECT * FROM `classifieds` WHERE (`classifieds`.`activation_code` = '926ca546839b5ce5a7127aba2741d8ed9eead450') LIMIT 1[0m
+Redirected to /
+Completed in 10ms (DB: 2) | 302 Found [http://localhost/activate/926ca546839b5ce5a7127aba2741d8ed9eead450]
+
+
+Processing MainController#index (for 127.0.0.1 at 2013-07-30 03:48:08) [GET]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+Rendering template within layouts/main
+Rendering main/index
+Rendered main/_logo (0.1ms)
+Rendered main/_menu (0.2ms)
+  [4;35;1mCity Load (0.2ms)[0m   [0mSELECT id, name, permalink FROM `cities` ORDER BY name ASC[0m
+  [4;36;1mCity Columns (1.0ms)[0m   [0;1mSHOW FIELDS FROM `cities`[0m
+Completed in 17ms (View: 9, DB: 1) | 200 OK [http://localhost/]
+
+
+Processing MainController#activate (for 127.0.0.1 at 2013-07-30 03:48:35) [GET]
+  Parameters: {"activation_code"=>"bdd65d50c10cdc3a60fad6c6334f58be7051afa9"}
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mClassified Columns (1.8ms)[0m   [0;1mSHOW FIELDS FROM `classifieds`[0m
+  [4;35;1mClassified Load (0.9ms)[0m   [0mSELECT * FROM `classifieds` WHERE (`classifieds`.`activation_code` = 'bdd65d50c10cdc3a60fad6c6334f58be7051afa9') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClassified Update (0.4ms)[0m   [0mUPDATE `classifieds` SET `status` = 1, `updated_at` = '2013-07-30 07:48:35' WHERE `id` = 3[0m
+[paperclip] Saving attachments.
+  [4;36;1mSQL (91.2ms)[0m   [0;1mCOMMIT[0m
+Redirected to /
+Completed in 107ms (DB: 95) | 302 Found [http://localhost/activate/bdd65d50c10cdc3a60fad6c6334f58be7051afa9]
+
+
+Processing MainController#index (for 127.0.0.1 at 2013-07-30 03:48:36) [GET]
+  [4;35;1mSQL (0.2ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+Rendering template within layouts/main
+Rendering main/index
+Rendered main/_logo (0.1ms)
+Rendered main/_menu (0.2ms)
+  [4;36;1mCity Load (0.1ms)[0m   [0;1mSELECT id, name, permalink FROM `cities` ORDER BY name ASC[0m
+  [4;35;1mCity Columns (0.8ms)[0m   [0mSHOW FIELDS FROM `cities`[0m
+Completed in 12ms (View: 7, DB: 1) | 200 OK [http://localhost/]
+
+
+Processing MainController#city (for 127.0.0.1 at 2013-07-30 03:48:38) [GET]
+  Parameters: {"permalink_1"=>"columbia-university"}
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mCity Load (0.1ms)[0m   [0mSELECT * FROM `cities` WHERE (`cities`.`permalink` = 'columbia-university') LIMIT 1[0m
+  [4;36;1mCity Load (0.1ms)[0m   [0;1mSELECT * FROM `cities` LIMIT 87[0m
+  [4;35;1mCity Columns (1.1ms)[0m   [0mSHOW FIELDS FROM `cities`[0m
+Rendering template within layouts/main
+Rendering main/city
+Rendered main/_logo (0.3ms)
+Rendered main/_menu (0.4ms)
+  [4;36;1mCategory Load (0.2ms)[0m   [0;1mSELECT * FROM `categories` WHERE (`categories`.`parent_id` = '0') ORDER BY pos asc[0m
+  [4;35;1mCategory Columns (1.2ms)[0m   [0mSHOW FIELDS FROM `categories`[0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM `categories` WHERE (`categories`.`parent_id` = '0') ORDER BY pos asc[0m
+  [4;35;1mSubcategory Columns (1.5ms)[0m   [0mSHOW FIELDS FROM `categories`[0m
+  [4;36;1mSubcategory Load (0.1ms)[0m   [0;1mSELECT * FROM `categories` WHERE (`categories`.parent_id = 1) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+  [4;35;1mSubcategory Load (0.1ms)[0m   [0mSELECT * FROM `categories` WHERE (`categories`.parent_id = 2) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+  [4;36;1mSubcategory Load (0.1ms)[0m   [0;1mSELECT * FROM `categories` WHERE (`categories`.parent_id = 3) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+Rendered main/_citylist (0.7ms)
+Completed in 100ms (View: 88, DB: 2) | 200 OK [http://localhost/columbia-university]
+
+
+Processing MainController#category (for 127.0.0.1 at 2013-07-30 03:48:40) [GET]
+  Parameters: {"permalink_1"=>"columbia-university", "permalink_2"=>"engineering"}
+  [4;35;1mSQL (0.2ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mCity Load (0.4ms)[0m   [0;1mSELECT * FROM `cities` WHERE (`cities`.`permalink` = 'columbia-university') LIMIT 1[0m
+  [4;35;1mCategory Load (0.2ms)[0m   [0mSELECT * FROM `categories` WHERE (`categories`.`permalink` = 'engineering') LIMIT 1[0m
+  [4;36;1mCategory Columns (0.8ms)[0m   [0;1mSHOW FIELDS FROM `categories`[0m
+  [4;35;1mSubcategory Columns (1.5ms)[0m   [0mSHOW FIELDS FROM `categories`[0m
+  [4;36;1mCity Columns (0.9ms)[0m   [0;1mSHOW FIELDS FROM `cities`[0m
+  [4;35;1mClassified Load (3.0ms)[0m   [0mSELECT * FROM `classifieds` WHERE (`classifieds`.`city_id` = 1 AND `classifieds`.`status` = 1 AND `classifieds`.`subcategory_id` = 4) ORDER BY created_at DESC LIMIT 0, 10[0m
+Rendering template within layouts/category
+Rendering main/category
+  [4;36;1mSubcategory Load (0.1ms)[0m   [0;1mSELECT * FROM `categories` WHERE (parent_id = 1) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+  [4;35;1mClassified Columns (1.0ms)[0m   [0mSHOW FIELDS FROM `classifieds`[0m
+  [4;36;1mCity Load (0.3ms)[0m   [0;1mSELECT * FROM `cities` WHERE (`cities`.`id` = 1) [0m
+  [4;35;1mSubcategory Load (0.1ms)[0m   [0mSELECT * FROM `categories` WHERE (`categories`.`id` = 4) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM `cities` WHERE (`cities`.`id` = 1) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (`categories`.`id` = 4) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+Completed in 57ms (View: 26, DB: 8) | 200 OK [http://localhost/columbia-university/engineering]
+
+
+Processing ClassifiedsController#show (for 127.0.0.1 at 2013-07-30 03:48:45) [GET]
+  Parameters: {"permalink_1"=>"columbia-university", "permalink_2"=>"engineering", "permalink_3"=>"buy-guitar"}
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mClassified Load (0.6ms)[0m   [0mSELECT * FROM `classifieds` WHERE (`classifieds`.`permalink` = 'buy-guitar') LIMIT 1[0m
+  [4;36;1mClassified Columns (1.0ms)[0m   [0;1mSHOW FIELDS FROM `classifieds`[0m
+  [4;35;1mCity Columns (0.7ms)[0m   [0mSHOW FIELDS FROM `cities`[0m
+  [4;36;1mCity Load (0.1ms)[0m   [0;1mSELECT * FROM `cities` WHERE (`cities`.`id` = 1) [0m
+Rendering template within layouts/classifieds
+Rendering classifieds/show
+  [4;35;1mCategory Columns (0.9ms)[0m   [0mSHOW FIELDS FROM `categories`[0m
+  [4;36;1mCategory Load (0.1ms)[0m   [0;1mSELECT * FROM `categories` WHERE (`categories`.`id` = 1) [0m
+  [4;35;1mSubcategory Columns (0.8ms)[0m   [0mSHOW FIELDS FROM `categories`[0m
+  [4;36;1mSubcategory Load (0.1ms)[0m   [0;1mSELECT * FROM `categories` WHERE (`categories`.`id` = 4) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+  [4;35;1mSimpleCaptchaData Load (0.4ms)[0m   [0mSELECT * FROM `simple_captcha_data` WHERE (`simple_captcha_data`.`key` = '3d296dfaaad7e4c0d5f01bab34218a8788b2cd84') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mSimpleCaptchaData Create (31.0ms)[0m   [0mINSERT INTO `simple_captcha_data` (`updated_at`, `value`, `key`, `created_at`) VALUES('2013-07-30 07:48:46', 'NOUURW', '3d296dfaaad7e4c0d5f01bab34218a8788b2cd84', '2013-07-30 07:48:46')[0m
+  [4;36;1mSQL (139.4ms)[0m   [0;1mCOMMIT[0m
+Rendered simple_captcha/_simple_captcha (0.3ms)
+Rendered contact_mailer/_contact_advertiser (177.4ms)
+Completed in 329ms (View: 140, DB: 175) | 200 OK [http://localhost/columbia-university/engineering/buy-guitar]
+
+
+Processing SimpleCaptchaController#simple_captcha (for 127.0.0.1 at 2013-07-30 03:48:46) [GET]
+  Parameters: {"time"=>"1375170526", "image_style"=>"", "simple_captcha_key"=>"3d296dfaaad7e4c0d5f01bab34218a8788b2cd84", "distortion"=>""}
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSimpleCaptchaData Load (0.3ms)[0m   [0;1mSELECT * FROM `simple_captcha_data` WHERE (`simple_captcha_data`.`key` = '3d296dfaaad7e4c0d5f01bab34218a8788b2cd84') LIMIT 1[0m
+Sending data simple_captcha.jpg
+Completed in 14ms (View: 0, DB: 0) | 200 OK [http://localhost/simple_captcha/simple_captcha?distortion=&image_style=&simple_captcha_key=3d296dfaaad7e4c0d5f01bab34218a8788b2cd84&time=1375170526]
+
+
+Processing MainController#activate (for 127.0.0.1 at 2013-07-30 03:49:23) [GET]
+  Parameters: {"activation_code"=>"926ca546839b5ce5a7127aba2741d8ed9eead450"}
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mClassified Columns (1.2ms)[0m   [0;1mSHOW FIELDS FROM `classifieds`[0m
+  [4;35;1mClassified Load (0.5ms)[0m   [0mSELECT * FROM `classifieds` WHERE (`classifieds`.`activation_code` = '926ca546839b5ce5a7127aba2741d8ed9eead450') LIMIT 1[0m
+Redirected to /
+Completed in 12ms (DB: 2) | 302 Found [http://localhost/activate/926ca546839b5ce5a7127aba2741d8ed9eead450]
+
+
+Processing MainController#index (for 127.0.0.1 at 2013-07-30 03:49:23) [GET]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+Rendering template within layouts/main
+Rendering main/index
+Rendered main/_logo (0.1ms)
+Rendered main/_menu (0.2ms)
+  [4;35;1mCity Load (0.3ms)[0m   [0mSELECT id, name, permalink FROM `cities` ORDER BY name ASC[0m
+  [4;36;1mCity Columns (1.3ms)[0m   [0;1mSHOW FIELDS FROM `cities`[0m
+Completed in 16ms (View: 7, DB: 2) | 200 OK [http://localhost/]
+
+
+Processing MainController#city (for 127.0.0.1 at 2013-07-30 03:50:19) [GET]
+  Parameters: {"permalink_1"=>"columbia-university"}
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mCity Load (0.2ms)[0m   [0;1mSELECT * FROM `cities` WHERE (`cities`.`permalink` = 'columbia-university') LIMIT 1[0m
+  [4;35;1mCity Load (0.1ms)[0m   [0mSELECT * FROM `cities` LIMIT 87[0m
+  [4;36;1mCity Columns (1.1ms)[0m   [0;1mSHOW FIELDS FROM `cities`[0m
+Rendering template within layouts/main
+Rendering main/city
+Rendered main/_logo (0.1ms)
+Rendered main/_menu (0.2ms)
+  [4;35;1mCategory Load (0.2ms)[0m   [0mSELECT * FROM `categories` WHERE (`categories`.`parent_id` = '0') ORDER BY pos asc[0m
+  [4;36;1mCategory Columns (1.4ms)[0m   [0;1mSHOW FIELDS FROM `categories`[0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (`categories`.`parent_id` = '0') ORDER BY pos asc[0m
+  [4;36;1mSubcategory Columns (1.5ms)[0m   [0;1mSHOW FIELDS FROM `categories`[0m
+  [4;35;1mSubcategory Load (0.1ms)[0m   [0mSELECT * FROM `categories` WHERE (`categories`.parent_id = 1) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+  [4;36;1mSubcategory Load (0.1ms)[0m   [0;1mSELECT * FROM `categories` WHERE (`categories`.parent_id = 2) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+  [4;35;1mSubcategory Load (0.1ms)[0m   [0mSELECT * FROM `categories` WHERE (`categories`.parent_id = 3) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+Rendered main/_citylist (0.5ms)
+Completed in 38ms (View: 25, DB: 1) | 200 OK [http://localhost/columbia-university]
+
+
+Processing MainController#category (for 127.0.0.1 at 2013-07-30 03:50:21) [GET]
+  Parameters: {"permalink_1"=>"columbia-university", "permalink_2"=>"contemporary-civilisation"}
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mCity Load (0.2ms)[0m   [0mSELECT * FROM `cities` WHERE (`cities`.`permalink` = 'columbia-university') LIMIT 1[0m
+  [4;36;1mCategory Load (0.3ms)[0m   [0;1mSELECT * FROM `categories` WHERE (`categories`.`permalink` = 'contemporary-civilisation') LIMIT 1[0m
+  [4;35;1mCategory Columns (1.3ms)[0m   [0mSHOW FIELDS FROM `categories`[0m
+  [4;36;1mSubcategory Columns (1.4ms)[0m   [0;1mSHOW FIELDS FROM `categories`[0m
+  [4;35;1mCity Columns (1.2ms)[0m   [0mSHOW FIELDS FROM `cities`[0m
+  [4;36;1mClassified Load (0.7ms)[0m   [0;1mSELECT * FROM `classifieds` WHERE (`classifieds`.`city_id` = 1 AND `classifieds`.`status` = 1 AND `classifieds`.`subcategory_id` = 5) ORDER BY created_at DESC LIMIT 0, 10[0m
+Rendering template within layouts/category
+Rendering main/category
+  [4;35;1mSubcategory Load (0.1ms)[0m   [0mSELECT * FROM `categories` WHERE (parent_id = 2) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+Completed in 47ms (View: 12, DB: 5) | 200 OK [http://localhost/columbia-university/contemporary-civilisation]
+
+
+Processing MainController#category (for 127.0.0.1 at 2013-07-30 03:50:24) [GET]
+  Parameters: {"permalink_1"=>"columbia-university", "permalink_2"=>"macklemore"}
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mCity Load (0.1ms)[0m   [0mSELECT * FROM `cities` WHERE (`cities`.`permalink` = 'columbia-university') LIMIT 1[0m
+  [4;36;1mCategory Load (0.1ms)[0m   [0;1mSELECT * FROM `categories` WHERE (`categories`.`permalink` = 'macklemore') LIMIT 1[0m
+  [4;35;1mCategory Columns (0.8ms)[0m   [0mSHOW FIELDS FROM `categories`[0m
+  [4;36;1mSubcategory Columns (1.5ms)[0m   [0;1mSHOW FIELDS FROM `categories`[0m
+  [4;35;1mCity Columns (1.1ms)[0m   [0mSHOW FIELDS FROM `cities`[0m
+  [4;36;1mClassified Load (0.6ms)[0m   [0;1mSELECT * FROM `classifieds` WHERE (`classifieds`.`city_id` = 1 AND `classifieds`.`status` = 1 AND `classifieds`.`subcategory_id` = 6) ORDER BY created_at DESC LIMIT 0, 10[0m
+Rendering template within layouts/category
+Rendering main/category
+  [4;35;1mSubcategory Load (0.2ms)[0m   [0mSELECT * FROM `categories` WHERE (parent_id = 3) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+Completed in 43ms (View: 12, DB: 5) | 200 OK [http://localhost/columbia-university/macklemore]
+
+
+Processing MainController#category (for 127.0.0.1 at 2013-07-30 03:50:27) [GET]
+  Parameters: {"permalink_1"=>"columbia-university", "permalink_2"=>"engineering"}
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mCity Load (0.2ms)[0m   [0mSELECT * FROM `cities` WHERE (`cities`.`permalink` = 'columbia-university') LIMIT 1[0m
+  [4;36;1mCategory Load (0.1ms)[0m   [0;1mSELECT * FROM `categories` WHERE (`categories`.`permalink` = 'engineering') LIMIT 1[0m
+  [4;35;1mCategory Columns (1.1ms)[0m   [0mSHOW FIELDS FROM `categories`[0m
+  [4;36;1mSubcategory Columns (0.8ms)[0m   [0;1mSHOW FIELDS FROM `categories`[0m
+  [4;35;1mCity Columns (0.6ms)[0m   [0mSHOW FIELDS FROM `cities`[0m
+  [4;36;1mClassified Load (0.1ms)[0m   [0;1mSELECT * FROM `classifieds` WHERE (`classifieds`.`city_id` = 1 AND `classifieds`.`status` = 1 AND `classifieds`.`subcategory_id` = 4) ORDER BY created_at DESC LIMIT 0, 10[0m
+Rendering template within layouts/category
+Rendering main/category
+  [4;35;1mSubcategory Load (0.1ms)[0m   [0mSELECT * FROM `categories` WHERE (parent_id = 1) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+  [4;36;1mClassified Columns (1.7ms)[0m   [0;1mSHOW FIELDS FROM `classifieds`[0m
+  [4;35;1mCity Load (0.2ms)[0m   [0mSELECT * FROM `cities` WHERE (`cities`.`id` = 1) [0m
+  [4;36;1mSubcategory Load (0.2ms)[0m   [0;1mSELECT * FROM `categories` WHERE (`categories`.`id` = 4) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM `cities` WHERE (`cities`.`id` = 1) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM `categories` WHERE (`categories`.`id` = 4) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+Completed in 41ms (View: 19, DB: 5) | 200 OK [http://localhost/columbia-university/engineering]
+
+
+Processing ClassifiedsController#show (for 127.0.0.1 at 2013-07-30 03:50:32) [GET]
+  Parameters: {"permalink_1"=>"columbia-university", "permalink_2"=>"engineering", "permalink_3"=>"books"}
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mClassified Load (0.7ms)[0m   [0;1mSELECT * FROM `classifieds` WHERE (`classifieds`.`permalink` = 'books') LIMIT 1[0m
+  [4;35;1mClassified Columns (2.0ms)[0m   [0mSHOW FIELDS FROM `classifieds`[0m
+  [4;36;1mCity Columns (1.4ms)[0m   [0;1mSHOW FIELDS FROM `cities`[0m
+  [4;35;1mCity Load (0.2ms)[0m   [0mSELECT * FROM `cities` WHERE (`cities`.`id` = 1) [0m
+Rendering template within layouts/classifieds
+Rendering classifieds/show
+  [4;36;1mCategory Columns (1.3ms)[0m   [0;1mSHOW FIELDS FROM `categories`[0m
+  [4;35;1mCategory Load (0.1ms)[0m   [0mSELECT * FROM `categories` WHERE (`categories`.`id` = 1) [0m
+  [4;36;1mSubcategory Columns (1.2ms)[0m   [0;1mSHOW FIELDS FROM `categories`[0m
+  [4;35;1mSubcategory Load (0.2ms)[0m   [0mSELECT * FROM `categories` WHERE (`categories`.`id` = 4) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+  [4;36;1mSimpleCaptchaData Load (0.1ms)[0m   [0;1mSELECT * FROM `simple_captcha_data` WHERE (`simple_captcha_data`.`key` = '3d296dfaaad7e4c0d5f01bab34218a8788b2cd84') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mSimpleCaptchaData Update (22.3ms)[0m   [0;1mUPDATE `simple_captcha_data` SET `value` = 'KLWIYF', `updated_at` = '2013-07-30 07:50:32' WHERE `id` = 4[0m
+  [4;35;1mSQL (71.1ms)[0m   [0mCOMMIT[0m
+Rendered simple_captcha/_simple_captcha (0.5ms)
+Rendered contact_mailer/_contact_advertiser (101.4ms)
+Completed in 150ms (View: 30, DB: 101) | 200 OK [http://localhost/columbia-university/engineering/books]
+
+
+Processing SimpleCaptchaController#simple_captcha (for 127.0.0.1 at 2013-07-30 03:50:33) [GET]
+  Parameters: {"time"=>"1375170632", "image_style"=>"", "simple_captcha_key"=>"3d296dfaaad7e4c0d5f01bab34218a8788b2cd84", "distortion"=>""}
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mSimpleCaptchaData Load (0.4ms)[0m   [0mSELECT * FROM `simple_captcha_data` WHERE (`simple_captcha_data`.`key` = '3d296dfaaad7e4c0d5f01bab34218a8788b2cd84') LIMIT 1[0m
+Sending data simple_captcha.jpg
+Completed in 17ms (View: 0, DB: 1) | 200 OK [http://localhost/simple_captcha/simple_captcha?distortion=&image_style=&simple_captcha_key=3d296dfaaad7e4c0d5f01bab34218a8788b2cd84&time=1375170632]
+
+
+Processing ClassifiedsController#new (for 127.0.0.1 at 2013-07-30 03:51:40) [GET]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mClassified Columns (1.8ms)[0m   [0mSHOW FIELDS FROM `classifieds`[0m
+Rendering template within layouts/classifieds
+Rendering classifieds/new
+  [4;36;1mCategory Load (0.2ms)[0m   [0;1mSELECT * FROM `categories` WHERE (`categories`.`parent_id` = '0') ORDER BY pos asc[0m
+  [4;35;1mCategory Columns (1.3ms)[0m   [0mSHOW FIELDS FROM `categories`[0m
+  [4;36;1mSubcategory Columns (1.5ms)[0m   [0;1mSHOW FIELDS FROM `categories`[0m
+  [4;35;1mSubcategory Load (0.2ms)[0m   [0mSELECT * FROM `categories` WHERE (`categories`.parent_id = 1) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+  [4;36;1mSubcategory Load (0.1ms)[0m   [0;1mSELECT * FROM `categories` WHERE (`categories`.parent_id = 2) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+  [4;35;1mSubcategory Load (0.2ms)[0m   [0mSELECT * FROM `categories` WHERE (`categories`.parent_id = 3) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+  [4;36;1mCity Load (0.2ms)[0m   [0;1mSELECT id, name, permalink FROM `cities` ORDER BY name ASC[0m
+  [4;35;1mCity Columns (1.2ms)[0m   [0mSHOW FIELDS FROM `cities`[0m
+  [4;36;1mSimpleCaptchaData Columns (0.8ms)[0m   [0;1mSHOW FIELDS FROM `simple_captcha_data`[0m
+  [4;35;1mSimpleCaptchaData Load (0.1ms)[0m   [0mSELECT * FROM `simple_captcha_data` WHERE (`simple_captcha_data`.`key` = '3d296dfaaad7e4c0d5f01bab34218a8788b2cd84') LIMIT 1[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mSimpleCaptchaData Update (0.6ms)[0m   [0mUPDATE `simple_captcha_data` SET `value` = '059811', `updated_at` = '2013-07-30 07:51:40' WHERE `id` = 4[0m
+  [4;36;1mSQL (163.2ms)[0m   [0;1mCOMMIT[0m
+Rendered simple_captcha/_simple_captcha (0.3ms)
+Completed in 235ms (View: 226, DB: 2) | 200 OK [http://localhost/classifieds/new]
+
+
+Processing SimpleCaptchaController#simple_captcha (for 127.0.0.1 at 2013-07-30 03:51:40) [GET]
+  Parameters: {"time"=>"1375170700", "image_style"=>"", "simple_captcha_key"=>"3d296dfaaad7e4c0d5f01bab34218a8788b2cd84", "distortion"=>""}
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSimpleCaptchaData Load (0.4ms)[0m   [0;1mSELECT * FROM `simple_captcha_data` WHERE (`simple_captcha_data`.`key` = '3d296dfaaad7e4c0d5f01bab34218a8788b2cd84') LIMIT 1[0m
+Sending data simple_captcha.jpg
+Completed in 40ms (View: 0, DB: 1) | 200 OK [http://localhost/simple_captcha/simple_captcha?distortion=&image_style=&simple_captcha_key=3d296dfaaad7e4c0d5f01bab34218a8788b2cd84&time=1375170700]
+
+
+Processing ClassifiedsController#create (for 127.0.0.1 at 2013-07-30 03:52:17) [POST]
+  Parameters: {"commit"=>"Post Classified Ad", "authenticity_token"=>"46ce649e662fb602bf9e133a639343c89fe2370c", "classified"=>{"title"=>"Checking", "captcha_key"=>"3d296dfaaad7e4c0d5f01bab34218a8788b2cd84", "captcha"=>"059811", "description"=>"tICKET TO CONCERT", "adtype"=>"O", "phone"=>"6465464380", "city_id"=>"1", "image"=>"", "location"=>"Holiday Inn", "subcategory_id"=>"6", "email"=>"kkt2123@columbia.edu"}}
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mClassified Columns (1.2ms)[0m   [0;1mSHOW FIELDS FROM `classifieds`[0m
+  [4;35;1mSubcategory Columns (1.0ms)[0m   [0mSHOW FIELDS FROM `categories`[0m
+  [4;36;1mSubcategory Load (0.1ms)[0m   [0;1mSELECT * FROM `categories` WHERE (`categories`.`id` = 6) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClassified Exists (0.5ms)[0m   [0;1mSELECT `classifieds`.id FROM `classifieds` WHERE (permalink = 'checking') LIMIT 1[0m
+  [4;35;1mSimpleCaptchaData Load (0.2ms)[0m   [0mSELECT * FROM `simple_captcha_data` WHERE (`simple_captcha_data`.`key` = '3d296dfaaad7e4c0d5f01bab34218a8788b2cd84') LIMIT 1[0m
+  [4;36;1mSimpleCaptchaData Load (0.2ms)[0m   [0;1mSELECT * FROM `simple_captcha_data` WHERE (updated_at < '2013-07-30 06:52:17') [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM `simple_captcha_data` WHERE (`simple_captcha_data`.`key` = '3d296dfaaad7e4c0d5f01bab34218a8788b2cd84') LIMIT 1[0m
+  [4;36;1mSimpleCaptchaData Destroy (17.0ms)[0m   [0;1mDELETE FROM `simple_captcha_data` WHERE `id` = 4[0m
+  [4;35;1mClassified Create (0.4ms)[0m   [0mINSERT INTO `classifieds` (`status`, `permalink`, `image_file_size`, `updated_at`, `title`, `activation_code`, `image_content_type`, `description`, `category_id`, `adtype`, `phone`, `city_id`, `location`, `email`, `subcategory_id`, `image_file_name`, `created_at`) VALUES(0, 'checking', NULL, '2013-07-30 07:52:17', 'Checking', 'd937c2e5e3a4a06a83b0261e4d85f5afdec8bde5', NULL, 'tICKET TO CONCERT', 3, 'O', '6465464380', 1, 'Holiday Inn', 'kkt2123@columbia.edu', 6, NULL, '2013-07-30 07:52:17')[0m
+[paperclip] Saving attachments.
+  [4;36;1mSQL (95.8ms)[0m   [0;1mCOMMIT[0m
+Sent mail to kkt2123@columbia.edu
+
+Date: Tue, 30 Jul 2013 03:52:17 -0400
+From: support@railslist.com
+To: kkt2123@columbia.edu
+Subject: railslist.com: Activate your Ad
+Mime-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+
+Thankyou for Posting @ railslist.com
+
+Ad Title: Checking
+
+Now you will have to Activate it using the links provided below. Either Click the links (or) Copy & Paste them in your browser.
+
+Activate Ad: http://localhost:3000/activate/d937c2e5e3a4a06a83b0261e4d85f5afdec8bde5
+      Edit Ad: http://localhost:3000/edit/d937c2e5e3a4a06a83b0261e4d85f5afdec8bde5
+
+_____________________________________________________________________________
+(Delete link will DELETE YOUR AD INSTANTLY WITHOUT ANY CONFIRMATION (or) WARNING!)
+
+Delete Ad: http://localhost:3000/delete/d937c2e5e3a4a06a83b0261e4d85f5afdec8bde5
+_____________________________________________________________________________
+
+
+Please store this email safe, you need it to Update / Remove your Ad.  
+
+
+sincerely
+
+railslist.com
+
+Rendering /home/hp/Documents/Rails_projects/craigslist/public/404.html
+
+
+Processing MainController#category (for 127.0.0.1 at 2013-07-30 03:53:14) [GET]
+  Parameters: {"permalink_1"=>"columbia-university", "permalink_2"=>"engineering"}
+  [4;35;1mSQL (2.3ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mCity Load (16.7ms)[0m   [0;1mSELECT * FROM `cities` WHERE (`cities`.`permalink` = 'columbia-university') LIMIT 1[0m
+  [4;35;1mCategory Load (0.2ms)[0m   [0mSELECT * FROM `categories` WHERE (`categories`.`permalink` = 'engineering') LIMIT 1[0m
+  [4;36;1mCategory Columns (1.8ms)[0m   [0;1mSHOW FIELDS FROM `categories`[0m
+  [4;35;1mSubcategory Columns (1.5ms)[0m   [0mSHOW FIELDS FROM `categories`[0m
+  [4;36;1mCity Columns (0.8ms)[0m   [0;1mSHOW FIELDS FROM `cities`[0m
+  [4;35;1mClassified Load (1.4ms)[0m   [0mSELECT * FROM `classifieds` WHERE (`classifieds`.`city_id` = 1 AND `classifieds`.`status` = 1 AND `classifieds`.`subcategory_id` = 4) ORDER BY created_at DESC LIMIT 0, 10[0m
+Rendering template within layouts/category
+Rendering main/category
+  [4;36;1mSubcategory Load (0.2ms)[0m   [0;1mSELECT * FROM `categories` WHERE (parent_id = 1) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+  [4;35;1mClassified Columns (1.6ms)[0m   [0mSHOW FIELDS FROM `classifieds`[0m
+  [4;36;1mCity Load (0.2ms)[0m   [0;1mSELECT * FROM `cities` WHERE (`cities`.`id` = 1) [0m
+  [4;35;1mSubcategory Load (0.1ms)[0m   [0mSELECT * FROM `categories` WHERE (`categories`.`id` = 4) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM `cities` WHERE (`cities`.`id` = 1) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (`categories`.`id` = 4) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+Completed in 73ms (View: 20, DB: 27) | 200 OK [http://localhost/columbia-university/engineering]
+
+
+Processing MainController#category (for 127.0.0.1 at 2013-07-30 03:53:18) [GET]
+  Parameters: {"permalink_1"=>"columbia-university", "permalink_2"=>"contemporary-civilisation"}
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mCity Load (0.1ms)[0m   [0mSELECT * FROM `cities` WHERE (`cities`.`permalink` = 'columbia-university') LIMIT 1[0m
+  [4;36;1mCategory Load (0.2ms)[0m   [0;1mSELECT * FROM `categories` WHERE (`categories`.`permalink` = 'contemporary-civilisation') LIMIT 1[0m
+  [4;35;1mCategory Columns (1.4ms)[0m   [0mSHOW FIELDS FROM `categories`[0m
+  [4;36;1mSubcategory Columns (1.3ms)[0m   [0;1mSHOW FIELDS FROM `categories`[0m
+  [4;35;1mCity Columns (1.0ms)[0m   [0mSHOW FIELDS FROM `cities`[0m
+  [4;36;1mClassified Load (0.6ms)[0m   [0;1mSELECT * FROM `classifieds` WHERE (`classifieds`.`city_id` = 1 AND `classifieds`.`status` = 1 AND `classifieds`.`subcategory_id` = 5) ORDER BY created_at DESC LIMIT 0, 10[0m
+Rendering template within layouts/category
+Rendering main/category
+  [4;35;1mSubcategory Load (0.2ms)[0m   [0mSELECT * FROM `categories` WHERE (parent_id = 2) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+Completed in 107ms (View: 79, DB: 5) | 200 OK [http://localhost/columbia-university/contemporary-civilisation]
+
+
+Processing MainController#category (for 127.0.0.1 at 2013-07-30 03:53:21) [GET]
+  Parameters: {"permalink_1"=>"columbia-university", "permalink_2"=>"macklemore"}
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mCity Load (0.2ms)[0m   [0mSELECT * FROM `cities` WHERE (`cities`.`permalink` = 'columbia-university') LIMIT 1[0m
+  [4;36;1mCategory Load (0.1ms)[0m   [0;1mSELECT * FROM `categories` WHERE (`categories`.`permalink` = 'macklemore') LIMIT 1[0m
+  [4;35;1mCategory Columns (0.8ms)[0m   [0mSHOW FIELDS FROM `categories`[0m
+  [4;36;1mSubcategory Columns (1.0ms)[0m   [0;1mSHOW FIELDS FROM `categories`[0m
+  [4;35;1mCity Columns (0.6ms)[0m   [0mSHOW FIELDS FROM `cities`[0m
+  [4;36;1mClassified Load (14.6ms)[0m   [0;1mSELECT * FROM `classifieds` WHERE (`classifieds`.`city_id` = 1 AND `classifieds`.`status` = 1 AND `classifieds`.`subcategory_id` = 6) ORDER BY created_at DESC LIMIT 0, 10[0m
+Rendering template within layouts/category
+Rendering main/category
+  [4;35;1mSubcategory Load (0.2ms)[0m   [0mSELECT * FROM `categories` WHERE (parent_id = 3) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+Completed in 54ms (View: 11, DB: 18) | 200 OK [http://localhost/columbia-university/macklemore]
+
+
+Processing MainController#activate (for 127.0.0.1 at 2013-07-30 03:54:01) [GET]
+  Parameters: {"activation_code"=>"d937c2e5e3a4a06a83b0261e4d85f5afdec8bde5"}
+  [4;36;1mSQL (0.8ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mClassified Columns (2.7ms)[0m   [0mSHOW FIELDS FROM `classifieds`[0m
+  [4;36;1mClassified Load (1.1ms)[0m   [0;1mSELECT * FROM `classifieds` WHERE (`classifieds`.`activation_code` = 'd937c2e5e3a4a06a83b0261e4d85f5afdec8bde5') LIMIT 1[0m
+  [4;35;1mSQL (1.3ms)[0m   [0mBEGIN[0m
+  [4;36;1mClassified Update (38.2ms)[0m   [0;1mUPDATE `classifieds` SET `status` = 1, `updated_at` = '2013-07-30 07:54:01' WHERE `id` = 4[0m
+[paperclip] Saving attachments.
+  [4;35;1mSQL (90.1ms)[0m   [0mCOMMIT[0m
+Redirected to /
+Completed in 145ms (DB: 134) | 302 Found [http://localhost/activate/d937c2e5e3a4a06a83b0261e4d85f5afdec8bde5]
+
+
+Processing MainController#index (for 127.0.0.1 at 2013-07-30 03:54:01) [GET]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+Rendering template within layouts/main
+Rendering main/index
+Rendered main/_logo (0.2ms)
+Rendered main/_menu (0.2ms)
+  [4;35;1mCity Load (0.2ms)[0m   [0mSELECT id, name, permalink FROM `cities` ORDER BY name ASC[0m
+  [4;36;1mCity Columns (0.9ms)[0m   [0;1mSHOW FIELDS FROM `cities`[0m
+Completed in 31ms (View: 24, DB: 1) | 200 OK [http://localhost/]
+
+
+Processing MainController#city (for 127.0.0.1 at 2013-07-30 03:54:04) [GET]
+  Parameters: {"permalink_1"=>"columbia-university"}
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mCity Load (0.2ms)[0m   [0;1mSELECT * FROM `cities` WHERE (`cities`.`permalink` = 'columbia-university') LIMIT 1[0m
+  [4;35;1mCity Load (0.1ms)[0m   [0mSELECT * FROM `cities` LIMIT 87[0m
+  [4;36;1mCity Columns (0.8ms)[0m   [0;1mSHOW FIELDS FROM `cities`[0m
+Rendering template within layouts/main
+Rendering main/city
+Rendered main/_logo (0.1ms)
+Rendered main/_menu (0.2ms)
+  [4;35;1mCategory Load (0.2ms)[0m   [0mSELECT * FROM `categories` WHERE (`categories`.`parent_id` = '0') ORDER BY pos asc[0m
+  [4;36;1mCategory Columns (1.0ms)[0m   [0;1mSHOW FIELDS FROM `categories`[0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (`categories`.`parent_id` = '0') ORDER BY pos asc[0m
+  [4;36;1mSubcategory Columns (1.5ms)[0m   [0;1mSHOW FIELDS FROM `categories`[0m
+  [4;35;1mSubcategory Load (0.2ms)[0m   [0mSELECT * FROM `categories` WHERE (`categories`.parent_id = 1) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+  [4;36;1mSubcategory Load (0.1ms)[0m   [0;1mSELECT * FROM `categories` WHERE (`categories`.parent_id = 2) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+  [4;35;1mSubcategory Load (0.1ms)[0m   [0mSELECT * FROM `categories` WHERE (`categories`.parent_id = 3) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+Rendered main/_citylist (0.9ms)
+Completed in 59ms (View: 48, DB: 1) | 200 OK [http://localhost/columbia-university]
+
+
+Processing MainController#category (for 127.0.0.1 at 2013-07-30 03:54:05) [GET]
+  Parameters: {"permalink_1"=>"columbia-university", "permalink_2"=>"macklemore"}
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mCity Load (0.1ms)[0m   [0mSELECT * FROM `cities` WHERE (`cities`.`permalink` = 'columbia-university') LIMIT 1[0m
+  [4;36;1mCategory Load (0.2ms)[0m   [0;1mSELECT * FROM `categories` WHERE (`categories`.`permalink` = 'macklemore') LIMIT 1[0m
+  [4;35;1mCategory Columns (1.4ms)[0m   [0mSHOW FIELDS FROM `categories`[0m
+  [4;36;1mSubcategory Columns (1.0ms)[0m   [0;1mSHOW FIELDS FROM `categories`[0m
+  [4;35;1mCity Columns (0.9ms)[0m   [0mSHOW FIELDS FROM `cities`[0m
+  [4;36;1mClassified Load (0.6ms)[0m   [0;1mSELECT * FROM `classifieds` WHERE (`classifieds`.`city_id` = 1 AND `classifieds`.`status` = 1 AND `classifieds`.`subcategory_id` = 6) ORDER BY created_at DESC LIMIT 0, 10[0m
+Rendering template within layouts/category
+Rendering main/category
+  [4;35;1mSubcategory Load (0.1ms)[0m   [0mSELECT * FROM `categories` WHERE (parent_id = 3) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+  [4;36;1mClassified Columns (1.0ms)[0m   [0;1mSHOW FIELDS FROM `classifieds`[0m
+  [4;35;1mCity Load (0.1ms)[0m   [0mSELECT * FROM `cities` WHERE (`cities`.`id` = 1) [0m
+  [4;36;1mSubcategory Load (0.1ms)[0m   [0;1mSELECT * FROM `categories` WHERE (`categories`.`id` = 6) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+Completed in 41ms (View: 10, DB: 6) | 200 OK [http://localhost/columbia-university/macklemore]
+
+
+Processing ClassifiedsController#show (for 127.0.0.1 at 2013-07-30 03:54:07) [GET]
+  Parameters: {"permalink_1"=>"columbia-university", "permalink_2"=>"macklemore", "permalink_3"=>"checking"}
+  [4;35;1mSQL (0.3ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mClassified Load (0.4ms)[0m   [0;1mSELECT * FROM `classifieds` WHERE (`classifieds`.`permalink` = 'checking') LIMIT 1[0m
+  [4;35;1mClassified Columns (1.0ms)[0m   [0mSHOW FIELDS FROM `classifieds`[0m
+  [4;36;1mCity Columns (1.0ms)[0m   [0;1mSHOW FIELDS FROM `cities`[0m
+  [4;35;1mCity Load (0.1ms)[0m   [0mSELECT * FROM `cities` WHERE (`cities`.`id` = 1) [0m
+Rendering template within layouts/classifieds
+Rendering classifieds/show
+  [4;36;1mCategory Columns (1.5ms)[0m   [0;1mSHOW FIELDS FROM `categories`[0m
+  [4;35;1mCategory Load (0.1ms)[0m   [0mSELECT * FROM `categories` WHERE (`categories`.`id` = 3) [0m
+  [4;36;1mSubcategory Columns (1.2ms)[0m   [0;1mSHOW FIELDS FROM `categories`[0m
+  [4;35;1mSubcategory Load (0.1ms)[0m   [0mSELECT * FROM `categories` WHERE (`categories`.`id` = 6) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+  [4;36;1mSimpleCaptchaData Load (0.4ms)[0m   [0;1mSELECT * FROM `simple_captcha_data` WHERE (`simple_captcha_data`.`key` = '3d296dfaaad7e4c0d5f01bab34218a8788b2cd84') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mSimpleCaptchaData Create (15.5ms)[0m   [0;1mINSERT INTO `simple_captcha_data` (`updated_at`, `value`, `key`, `created_at`) VALUES('2013-07-30 07:54:07', 'WBGRJO', '3d296dfaaad7e4c0d5f01bab34218a8788b2cd84', '2013-07-30 07:54:07')[0m
+  [4;35;1mSQL (74.4ms)[0m   [0mCOMMIT[0m
+Rendered simple_captcha/_simple_captcha (0.4ms)
+Rendered contact_mailer/_contact_advertiser (98.5ms)
+Completed in 172ms (View: 62, DB: 96) | 200 OK [http://localhost/columbia-university/macklemore/checking]
+
+
+Processing SimpleCaptchaController#simple_captcha (for 127.0.0.1 at 2013-07-30 03:54:08) [GET]
+  Parameters: {"time"=>"1375170847", "image_style"=>"", "simple_captcha_key"=>"3d296dfaaad7e4c0d5f01bab34218a8788b2cd84", "distortion"=>""}
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mSimpleCaptchaData Load (0.6ms)[0m   [0mSELECT * FROM `simple_captcha_data` WHERE (`simple_captcha_data`.`key` = '3d296dfaaad7e4c0d5f01bab34218a8788b2cd84') LIMIT 1[0m
+Sending data simple_captcha.jpg
+Completed in 128ms (View: 0, DB: 1) | 200 OK [http://localhost/simple_captcha/simple_captcha?distortion=&image_style=&simple_captcha_key=3d296dfaaad7e4c0d5f01bab34218a8788b2cd84&time=1375170847]
+
+
+Processing MainController#category (for 127.0.0.1 at 2013-07-30 03:56:00) [GET]
+  Parameters: {"permalink_1"=>"columbia-university", "permalink_2"=>"engineering"}
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mCity Load (0.2ms)[0m   [0mSELECT * FROM `cities` WHERE (`cities`.`permalink` = 'columbia-university') LIMIT 1[0m
+  [4;36;1mCategory Load (0.2ms)[0m   [0;1mSELECT * FROM `categories` WHERE (`categories`.`permalink` = 'engineering') LIMIT 1[0m
+  [4;35;1mCategory Columns (1.5ms)[0m   [0mSHOW FIELDS FROM `categories`[0m
+  [4;36;1mSubcategory Columns (1.9ms)[0m   [0;1mSHOW FIELDS FROM `categories`[0m
+  [4;35;1mCity Columns (0.7ms)[0m   [0mSHOW FIELDS FROM `cities`[0m
+  [4;36;1mClassified Load (0.7ms)[0m   [0;1mSELECT * FROM `classifieds` WHERE (`classifieds`.`city_id` = 1 AND `classifieds`.`status` = 1 AND `classifieds`.`subcategory_id` = 4) ORDER BY created_at DESC LIMIT 0, 10[0m
+Rendering template within layouts/category
+Rendering main/category
+  [4;35;1mSubcategory Load (0.2ms)[0m   [0mSELECT * FROM `categories` WHERE (parent_id = 1) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+  [4;36;1mClassified Columns (2.0ms)[0m   [0;1mSHOW FIELDS FROM `classifieds`[0m
+  [4;35;1mCity Load (0.2ms)[0m   [0mSELECT * FROM `cities` WHERE (`cities`.`id` = 1) [0m
+  [4;36;1mSubcategory Load (0.2ms)[0m   [0;1mSELECT * FROM `categories` WHERE (`categories`.`id` = 4) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM `cities` WHERE (`cities`.`id` = 1) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM `categories` WHERE (`categories`.`id` = 4) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+Completed in 126ms (View: 19, DB: 8) | 200 OK [http://localhost/columbia-university/engineering]
+
+
+Processing MainController#category (for 127.0.0.1 at 2013-07-30 03:56:03) [GET]
+  Parameters: {"permalink_1"=>"columbia-university", "permalink_2"=>"engineering"}
+  [4;35;1mSQL (0.2ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mCity Load (0.1ms)[0m   [0;1mSELECT * FROM `cities` WHERE (`cities`.`permalink` = 'columbia-university') LIMIT 1[0m
+  [4;35;1mCategory Load (0.3ms)[0m   [0mSELECT * FROM `categories` WHERE (`categories`.`permalink` = 'engineering') LIMIT 1[0m
+  [4;36;1mCategory Columns (1.5ms)[0m   [0;1mSHOW FIELDS FROM `categories`[0m
+  [4;35;1mSubcategory Columns (0.9ms)[0m   [0mSHOW FIELDS FROM `categories`[0m
+  [4;36;1mCity Columns (0.9ms)[0m   [0;1mSHOW FIELDS FROM `cities`[0m
+  [4;35;1mClassified Load (0.1ms)[0m   [0mSELECT * FROM `classifieds` WHERE (`classifieds`.`city_id` = 1 AND `classifieds`.`status` = 1 AND `classifieds`.`subcategory_id` = 4) ORDER BY created_at DESC LIMIT 0, 10[0m
+Rendering template within layouts/category
+Rendering main/category
+  [4;36;1mSubcategory Load (0.1ms)[0m   [0;1mSELECT * FROM `categories` WHERE (parent_id = 1) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+  [4;35;1mClassified Columns (1.9ms)[0m   [0mSHOW FIELDS FROM `classifieds`[0m
+  [4;36;1mCity Load (0.2ms)[0m   [0;1mSELECT * FROM `cities` WHERE (`cities`.`id` = 1) [0m
+  [4;35;1mSubcategory Load (0.2ms)[0m   [0mSELECT * FROM `categories` WHERE (`categories`.`id` = 4) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM `cities` WHERE (`cities`.`id` = 1) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (`categories`.`id` = 4) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+Completed in 42ms (View: 11, DB: 6) | 200 OK [http://localhost/columbia-university/engineering]
+
+
+Processing ClassifiedsController#show (for 127.0.0.1 at 2013-07-30 03:56:05) [GET]
+  Parameters: {"permalink_1"=>"columbia-university", "permalink_2"=>"engineering", "permalink_3"=>"buy-guitar"}
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mClassified Load (0.5ms)[0m   [0mSELECT * FROM `classifieds` WHERE (`classifieds`.`permalink` = 'buy-guitar') LIMIT 1[0m
+  [4;36;1mClassified Columns (0.9ms)[0m   [0;1mSHOW FIELDS FROM `classifieds`[0m
+  [4;35;1mCity Columns (1.2ms)[0m   [0mSHOW FIELDS FROM `cities`[0m
+  [4;36;1mCity Load (0.2ms)[0m   [0;1mSELECT * FROM `cities` WHERE (`cities`.`id` = 1) [0m
+Rendering template within layouts/classifieds
+Rendering classifieds/show
+  [4;35;1mCategory Columns (1.5ms)[0m   [0mSHOW FIELDS FROM `categories`[0m
+  [4;36;1mCategory Load (0.2ms)[0m   [0;1mSELECT * FROM `categories` WHERE (`categories`.`id` = 1) [0m
+  [4;35;1mSubcategory Columns (1.3ms)[0m   [0mSHOW FIELDS FROM `categories`[0m
+  [4;36;1mSubcategory Load (0.2ms)[0m   [0;1mSELECT * FROM `categories` WHERE (`categories`.`id` = 4) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+  [4;35;1mSimpleCaptchaData Load (0.2ms)[0m   [0mSELECT * FROM `simple_captcha_data` WHERE (`simple_captcha_data`.`key` = '3d296dfaaad7e4c0d5f01bab34218a8788b2cd84') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mSimpleCaptchaData Update (19.1ms)[0m   [0mUPDATE `simple_captcha_data` SET `value` = 'VEBFQO', `updated_at` = '2013-07-30 07:56:05' WHERE `id` = 5[0m
+  [4;36;1mSQL (91.8ms)[0m   [0;1mCOMMIT[0m
+Rendered simple_captcha/_simple_captcha (0.4ms)
+Rendered contact_mailer/_contact_advertiser (119.9ms)
+Completed in 164ms (View: 34, DB: 117) | 200 OK [http://localhost/columbia-university/engineering/buy-guitar]
+
+
+Processing SimpleCaptchaController#simple_captcha (for 127.0.0.1 at 2013-07-30 03:56:06) [GET]
+  Parameters: {"time"=>"1375170965", "image_style"=>"", "simple_captcha_key"=>"3d296dfaaad7e4c0d5f01bab34218a8788b2cd84", "distortion"=>""}
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSimpleCaptchaData Load (0.3ms)[0m   [0;1mSELECT * FROM `simple_captcha_data` WHERE (`simple_captcha_data`.`key` = '3d296dfaaad7e4c0d5f01bab34218a8788b2cd84') LIMIT 1[0m
+Sending data simple_captcha.jpg
+Completed in 13ms (View: 0, DB: 0) | 200 OK [http://localhost/simple_captcha/simple_captcha?distortion=&image_style=&simple_captcha_key=3d296dfaaad7e4c0d5f01bab34218a8788b2cd84&time=1375170965]
+
+
+Processing ClassifiedsController#show (for 127.0.0.1 at 2013-07-30 03:56:11) [GET]
+  Parameters: {"permalink_1"=>"columbia-university", "permalink_2"=>"engineering", "permalink_3"=>"buy-guitar"}
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mClassified Load (0.2ms)[0m   [0;1mSELECT * FROM `classifieds` WHERE (`classifieds`.`permalink` = 'buy-guitar') LIMIT 1[0m
+  [4;35;1mClassified Columns (1.1ms)[0m   [0mSHOW FIELDS FROM `classifieds`[0m
+  [4;36;1mCity Columns (0.9ms)[0m   [0;1mSHOW FIELDS FROM `cities`[0m
+  [4;35;1mCity Load (0.2ms)[0m   [0mSELECT * FROM `cities` WHERE (`cities`.`id` = 1) [0m
+Rendering template within layouts/classifieds
+Rendering classifieds/show
+  [4;36;1mCategory Columns (1.0ms)[0m   [0;1mSHOW FIELDS FROM `categories`[0m
+  [4;35;1mCategory Load (0.1ms)[0m   [0mSELECT * FROM `categories` WHERE (`categories`.`id` = 1) [0m
+  [4;36;1mSubcategory Columns (1.2ms)[0m   [0;1mSHOW FIELDS FROM `categories`[0m
+  [4;35;1mSubcategory Load (0.2ms)[0m   [0mSELECT * FROM `categories` WHERE (`categories`.`id` = 4) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+  [4;36;1mSimpleCaptchaData Load (0.1ms)[0m   [0;1mSELECT * FROM `simple_captcha_data` WHERE (`simple_captcha_data`.`key` = '3d296dfaaad7e4c0d5f01bab34218a8788b2cd84') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mSimpleCaptchaData Update (16.1ms)[0m   [0;1mUPDATE `simple_captcha_data` SET `value` = 'SCVXVJ', `updated_at` = '2013-07-30 07:56:11' WHERE `id` = 5[0m
+  [4;35;1mSQL (89.5ms)[0m   [0mCOMMIT[0m
+Rendered simple_captcha/_simple_captcha (0.4ms)
+Rendered contact_mailer/_contact_advertiser (113.1ms)
+Completed in 223ms (View: 31, DB: 111) | 200 OK [http://localhost/columbia-university/engineering/buy-guitar]
+
+
+Processing SimpleCaptchaController#simple_captcha (for 127.0.0.1 at 2013-07-30 03:56:11) [GET]
+  Parameters: {"time"=>"1375170971", "image_style"=>"", "simple_captcha_key"=>"3d296dfaaad7e4c0d5f01bab34218a8788b2cd84", "distortion"=>""}
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mSimpleCaptchaData Load (0.3ms)[0m   [0mSELECT * FROM `simple_captcha_data` WHERE (`simple_captcha_data`.`key` = '3d296dfaaad7e4c0d5f01bab34218a8788b2cd84') LIMIT 1[0m
+Sending data simple_captcha.jpg
+Completed in 15ms (View: 0, DB: 0) | 200 OK [http://localhost/simple_captcha/simple_captcha?distortion=&image_style=&simple_captcha_key=3d296dfaaad7e4c0d5f01bab34218a8788b2cd84&time=1375170971]
+
+
+Processing ClassifiedsController#index (for 127.0.0.1 at 2013-07-30 03:56:26) [GET]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mClassified Load (0.6ms)[0m   [0mSELECT * FROM `classifieds` ORDER BY created_at DESC LIMIT 0, 20[0m
+Rendering template within layouts/main
+Rendering classifieds/index
+Rendered main/_logo (0.2ms)
+Rendered users/_menu (0.4ms)
+  [4;36;1mSubcategory Columns (1.2ms)[0m   [0;1mSHOW FIELDS FROM `categories`[0m
+  [4;35;1mSubcategory Load (0.1ms)[0m   [0mSELECT * FROM `categories` WHERE ( (`categories`.`type` = 'Subcategory' ) ) ORDER BY name asc[0m
+  [4;36;1mClassified Columns (1.6ms)[0m   [0;1mSHOW FIELDS FROM `classifieds`[0m
+  [4;35;1mCategory Columns (1.4ms)[0m   [0mSHOW FIELDS FROM `categories`[0m
+  [4;36;1mCategory Load (0.2ms)[0m   [0;1mSELECT * FROM `categories` WHERE (`categories`.`id` = 3) [0m
+  [4;35;1mSubcategory Load (0.1ms)[0m   [0mSELECT * FROM `categories` WHERE (`categories`.`id` = 6) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+  [4;36;1mCategory Load (0.2ms)[0m   [0;1mSELECT * FROM `categories` WHERE (`categories`.`id` = 1) [0m
+  [4;35;1mSubcategory Load (0.1ms)[0m   [0mSELECT * FROM `categories` WHERE (`categories`.`id` = 4) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM `categories` WHERE (`categories`.`id` = 3) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (`categories`.`id` = 6) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM `categories` WHERE (`categories`.`id` = 1) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (`categories`.`id` = 4) AND ( (`categories`.`type` = 'Subcategory' ) ) [0m
+Completed in 73ms (View: 59, DB: 6) | 200 OK [http://localhost/classifieds]
+
+
+Processing UsersController#destroy (for 127.0.0.1 at 2013-07-30 03:56:32) [GET]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+Cookie set: password=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT
+Redirected to controllermain
+Completed in 185ms (DB: 0) | 302 Found [http://localhost/logout]
+
+
+Processing MainController#index (for 127.0.0.1 at 2013-07-30 03:56:32) [GET]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+Rendering template within layouts/main
+Rendering main/index
+Rendered main/_logo (0.1ms)
+Rendered main/_menu (0.2ms)
+  [4;36;1mCity Load (0.1ms)[0m   [0;1mSELECT id, name, permalink FROM `cities` ORDER BY name ASC[0m
+  [4;35;1mCity Columns (0.8ms)[0m   [0mSHOW FIELDS FROM `cities`[0m
+Completed in 81ms (View: 10, DB: 1) | 200 OK [http://localhost/]
+
+
+Processing UsersController#show (for 127.0.0.1 at 2013-07-30 03:56:39) [GET]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+Rendering users/show
+Completed in 4ms (View: 3, DB: 0) | 200 OK [http://localhost/user]
+
+
+Processing ClassifiedsController#index (for 127.0.0.1 at 2013-07-30 03:56:39) [GET]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+Redirected to /
+Filter chain halted as [:authorize] rendered_or_redirected.
+Completed in 0ms (DB: 0) | 302 Found [http://localhost/classifieds]
+
+
+Processing MainController#index (for 127.0.0.1 at 2013-07-30 03:56:39) [GET]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+Rendering template within layouts/main
+Rendering main/index
+Rendered main/_logo (0.1ms)
+Rendered main/_menu (0.2ms)
+  [4;35;1mCity Load (0.1ms)[0m   [0mSELECT id, name, permalink FROM `cities` ORDER BY name ASC[0m
+  [4;36;1mCity Columns (0.8ms)[0m   [0;1mSHOW FIELDS FROM `cities`[0m
+Completed in 19ms (View: 11, DB: 1) | 200 OK [http://localhost/]
