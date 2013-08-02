@@ -14,9 +14,9 @@ set :use_sudo, false
 # Your EC2 instances. Use the ec2-xxx....amazonaws.com hostname, not
 # any other name (in case you have your own DNS alias) or it won't
 # be able to resolve to the internal IP address.
-role :web,      "ec2-174-129-131-62.compute-1.amazonaws.com"
-role :app,      "ec2-174-129-131-62.compute-1.amazonaws.com"
-role :db,       "ec2-174-129-131-62.compute-1.amazonaws.com", :primary => true
+role :web,      "ec2-23-22-37-247.compute-1.amazonaws.com"
+role :memcache, "ec2-23-22-37-247.compute-1.amazonaws.com"
+role :db,       "ec2-23-22-37-247.compute-1.amazonaws.com", :primary => true
 #role :memcache, "ec2-12-xx-xx-xx.z-1.compute-1.amazonaws.com"
 #default_run_options[:pty] = true
 # Whatever you set here will be taken set as the default RAILS_ENV value
@@ -28,15 +28,15 @@ set :rails_env, "production"
 # NOTE: Some of these should be omitted if not needed.
 set :ec2onrails_config, {
   # S3 bucket and "subdir" used by the ec2onrails:db:restore task
-  #:restore_from_bucket => "your-bucket",
-  #:restore_from_bucket_subdir => "database",
+  :restore_from_bucket => "your-bucket",
+  :restore_from_bucket_subdir => "database",
   
   # S3 bucket and "subdir" used by the ec2onrails:db:archive task
   # This does not affect the automatic backup of your MySQL db to S3, it's
   # just for manually archiving a db snapshot to a different bucket if 
   # desired.
-  #:archive_to_bucket => "your-other-bucket",
-  #:archive_to_bucket_subdir => "db-archive/#{Time.new.strftime('%Y-%m-%d--%H-%M-%S')}",
+  :archive_to_bucket => "your-other-bucket",
+  :archive_to_bucket_subdir => "db-archive/#{Time.new.strftime('%Y-%m-%d--%H-%M-%S')}",
   
   # Set a root password for MySQL. Run "cap ec2onrails:db:set_root_password"
   # to enable this. This is optional, and after doing this the
@@ -44,7 +44,7 @@ set :ec2onrails_config, {
   # connections on the public network interface (you should block the MySQL
   # port with the firewall anyway). 
   # If you don't care about setting the mysql root password then remove this.
-  #:mysql_root_password => "your-mysql-root-password",
+  :mysql_root_password => "your-mysql-root-password",
   
   # Any extra Ubuntu packages to install if desired
   # If you don't want to install extra packages then remove this.
@@ -53,11 +53,23 @@ set :ec2onrails_config, {
   # Any extra RubyGems to install if desired: can be "gemname" or if a 
   # particular version is desired "gemname -v 1.0.1"
   # If you don't want to install extra rubygems then remove this
-  #:rubygems => ["rmagick", "rfacebook -v 0.9.7"],
+  #:rubygems => ["rmagick -v 2.13.2"],
+  
+  # extra security measures are taken if this is true, BUT it makes initial
+  # experimentation and setup a bit tricky.  For example, if you do not
+  # have your ssh keys setup correctly, you will be locked out of your
+  # server after 3 attempts for upto 3 months.  
+  :harden_server => false,
+  
+  #if you want to harden the server, or setup email signing, you will need to set the domain
+  #if you use Capistrano's multistage extension (recommended!), you can add a line like this to your
+  #environment specific file:
+  #      ec2onrails_config[:service_domain] = 'staging.mydomain.com'
+  :service_domain => nil,
   
   # Set the server timezone. run "cap -e ec2onrails:server:set_timezone" for 
   # details
-  #:timezone => "Canada/Eastern",
+  :timezone => "UTC",
   
   # Files to deploy to the server (they'll be owned by root). It's intended
   # mainly for customized config files for new packages installed via the 
@@ -66,17 +78,17 @@ set :ec2onrails_config, {
   # server's filesystem. 
   # If you don't need to deploy customized config files to the server then
   # remove this.
-  #:server_config_files_root => "../server_config",
+  #:server_config_files_root => "../server_configs",
   
   # If config files are deployed, some services might need to be restarted.
   # If you don't need to deploy customized config files to the server then
   # remove this.
-  #:services_to_restart => %w(apache2 postfix sysklogd),
+  #:services_to_restart => %w(postfix sysklogd),
   
   # Set an email address to forward admin mail messages to. If you don't
   # want to receive mail from the server (e.g. monit alert messages) then
   # remove this.
-  #:admin_mail_forward_address => "you@yourdomain.com",
+  :mail_forward_address => "kkt2123@columbia.edu",
   
   # Set this if you want SSL to be enabled on the web server. The SSL cert 
   # and key files need to exist on the server, The cert file should be in

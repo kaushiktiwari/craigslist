@@ -21,6 +21,8 @@ production:
   adapter: mysql
   encoding: utf8
   database: craigslist_production
-  username: kaushiktewari#<-- MAKE UP A NON "root" USER
+  username: kaushiktewari #<-- MAKE UP A NON "root" USER
   password: kaushik1994 # <-- MAKE UP ANY PASSWORD (can't be empty)
   hostname: db_primary
+  socket: /tmp/mysql.sock
+
