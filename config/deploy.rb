@@ -2,15 +2,17 @@
 # It should be edited and customized.
 
 set :application, "listatcu"
-
-set :repository, "#{ENV['HOME']}/Documents/Rails_projects/craigslist"
-
+set :repository, "git@github.com:kaushiktewari/craigslist.git"
+set :scm, "git"
 # NOTE: for some reason Capistrano requires you to have both the public and
 # the private key in the same folder, the public key should have the 
 # extension ".pub".
-ssh_options[:keys] = ["#{ENV['HOME']}/.ssh/id_rsa-ec2-rails-keypair.pem"]
+ssh_options[:keys] = ["#{ENV['HOME']}/.ssh/id_rsa-ec2-rails-keypair"]
 
-set :use_sudo, false
+ssh_options[:forward_agent] = true 
+set :branch, "master" 
+set :deploy_via, :remote_cache 
+default_run_options[:pty] = true
 # Your EC2 instances. Use the ec2-xxx....amazonaws.com hostname, not
 # any other name (in case you have your own DNS alias) or it won't
 # be able to resolve to the internal IP address.
@@ -48,12 +50,11 @@ set :ec2onrails_config, {
   
   # Any extra Ubuntu packages to install if desired
   # If you don't want to install extra packages then remove this.
-  #:packages => ["logwatch", "imagemagick"],
-  
+  :packages => ["librmagick-ruby","logwatch"],
+ 
   # Any extra RubyGems to install if desired: can be "gemname" or if a 
   # particular version is desired "gemname -v 1.0.1"
   # If you don't want to install extra rubygems then remove this
-  #:rubygems => ["rmagick -v 2.13.2"],
   
   # extra security measures are taken if this is true, BUT it makes initial
   # experimentation and setup a bit tricky.  For example, if you do not
@@ -95,4 +96,5 @@ set :ec2onrails_config, {
   # /etc/ssl/certs/default.pem and the key file should be in
   # /etc/ssl/private/default.key (see :server_config_files_root).
   #:enable_ssl => true
+
 }
