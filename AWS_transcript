@@ -1,0 +1,89 @@
+hp@ubuntu:~$ export AWS_SECRET_KEY=yhmctcAg9B7dDUwmipsgvchMuEh9K24kHWhC82hZ
+hp@ubuntu:~$ ec2-describe-regions
+REGION	eu-west-1	ec2.eu-west-1.amazonaws.com
+REGION	sa-east-1	ec2.sa-east-1.amazonaws.com
+REGION	us-east-1	ec2.us-east-1.amazonaws.com
+REGION	ap-northeast-1	ec2.ap-northeast-1.amazonaws.com
+REGION	us-west-2	ec2.us-west-2.amazonaws.com
+REGION	us-west-1	ec2.us-west-1.amazonaws.com
+REGION	ap-southeast-1	ec2.ap-southeast-1.amazonaws.com
+REGION	ap-southeast-2	ec2.ap-southeast-2.amazonaws.com
+hp@ubuntu:~$ ec2-add-keypair ec2-rails-keypair
+KEYPAIR	ec2-rails-keypair	a7:be:67:a8:e5:4f:13:31:5f:6d:59:8b:1e:6f:6d:4d:eb:22:1e:e1
+-----BEGIN RSA PRIVATE KEY-----
+MIIEpAIBAAKCAQEAr1Sz7NF2SlwGgCUAiyNxguKaPYahjUceT8DnxVIhoV89kXbc2DId/3c2XALB
+7Z2GVreVunIFcG4CSwm/l4UelLmKbbOdMzef5X+enXY+c55wL2r9gzU1jw2F4kkXF/qIehdfPg6G
+GWIFTyztMu969r3AuOKuH1ttGSu1Z3QcVYwwUsFnyUMV74cg2VUd32s2sFJFEITE09MqpmMdapEt
+iuHnRCW11f+ebLieYx7N1BzmuG2KpN6BpjeW9nT0F62gKpHtbec93t67wBA1KZBvu/RQrwPOvrKh
+hjX3kTRRFEGjYdAc4gKQHBx2UKZMv7vnPh7fdrdEKmybyDmRDoGfMQIDAQABAoIBAQCOc5RoIdsp
+GVHSxb2GTrrIK9JDkOIrRhATnljxEgTu9tGwIVHXegizailJYpgrtePTCv/k5wUSTt8gFoCK3AZ3
+sbQN43Qii9wm+6RkrRCaoazmadglxZKJcuRHcTkJK229PMYORoCfmOtVY9womThfxtYRoWL1aTPf
+0oplzonC2nGtsVuom3hPtTcP/hxrmilDCQK6xzzjOZUi6Rq0xHfjHsu1abb6x9QTiyBZOx5TYREy
+4Kei4kFLp5qmRssPuredByJDTa53OqPWv0gINV5mpNc3fZqf1DrrAezeWu+Myswb6mfCTVoxq+O9
+oZiIwWiyKGjpFl8ZWy12njgi7uWRAoGBAPrSH5ly/ZDgzaSHfadJO35o/MuGA3jSH3IMNiERWWmK
+B0cPY+R2Jgb99ddRSL3rhlqwJIzjdkO2ZL180b/tw30e+5QbFdYedbF3j60u6dZHBvuoN+HqRZl/
+xs7qnWAEklxgRuJQ3b5MshLq2txY3hD91mrzqtFDe1sXVo1AnH91AoGBALLzhzyLxGNOV+mr9Tiu
+224x0BzhtDe9V7yjbzIPyajSdd6zkegLqDE3qGrEpR3B42p1uu2rvmzmUHc+PDgs+6ehdiZZa1oB
+r2CxDmygEfp0JaV4AZzyRzM7RcJzSqDPojv86c3krHgBaoaVUqNPS1T9u7KFMkQV0l5Nlp7Q6gVN
+AoGASLlIBDv9HVaxCXVnj2uCXoKeWXx/4TY7e9vije/z1s/4kDf8JK/FEt3rvASLbNWvXPgZgOgq
+0DNAPljEkDumJM8o7qZzzGOEiHI8LGCf2Es70RfTLCO7DmioAjKwcrignzwjEVeVE6o1L5r83kq+
+CHsxAk2oR4ijaaP4qngDaEkCgYAMHNfGjV9ZqW/h7TXIBG3t44lGqzBbpYFOz3EzXkY0GyrHTDhQ
+EJnt2uqXb4ANp5YRGq7wb3OQQ3am25uP4duW2SL6LYtKqFqKnPFxANS2sy3pKVpSmUOggB6UruEa
+SXOdw9y/hv71kIL5YRoa278pnZMa3lEssp1urKnJTjLI8QKBgQDXjHbXgvFGEo2htQJZwuQNK0w6
+gs+UIIcvqOIrpKgaQiGWHcNhDPFo8rKuGTNIOMZPy1D6GHnK1K49SOW4XrIjFTu2owTPO8QXWtcG
+VbYstIQlmXBMFyPBqKuZJJ+ISZ1KW/+1rDlnGPqK3SJMm2Lhi83jVlPVOCTjfxvfqpX7Cw==
+-----END RSA PRIVATE KEY-----
+hp@ubuntu:~$ cd ~/.ssh
+hp@ubuntu:~/.ssh$ ls
+id_rsa	id_rsa.pub  known_hosts
+hp@ubuntu:~/.ssh$ cp /home/ssh/id_rsa-ec2-rails-keypair /.ssh
+cp: cannot stat ‘/home/ssh/id_rsa-ec2-rails-keypair’: No such file or directory
+hp@ubuntu:~/.ssh$ cd -
+/home/hp
+hp@ubuntu:~$ cd .ssh
+hp@ubuntu:~/.ssh$ cd -
+/home/hp
+hp@ubuntu:~$ chmod 600 ~/.ssh/id_rsa-ec2-rails-keypair
+hp@ubuntu:~$ ec2-run-instances ami-c9bc58a0 -k ec2-rails-keypair
+RESERVATION	r-b41951d8	759692882018	default
+INSTANCE	i-1fff5075	ami-c9bc58a0			pending	ec2-rails-keypair	0		m1.small	2013-08-01T04:08:50+0000	us-east-1d	aki-a71cf9ce	ari-a51cf9cc		monitoring-disabled	instance-store					paravirtual	xen		sg-f2af1899	default	false	
+hp@ubuntu:~$ ec2-describe-instances i-1fff5075
+RESERVATION	r-b41951d8	759692882018	default
+INSTANCE	i-1fff5075	ami-c9bc58a0	ec2-174-129-131-62.compute-1.amazonaws.com	ip-10-168-27-55.ec2.internal	pending	ec2-rails-keypair	0m1.small	2013-08-01T04:08:50+0000	us-east-1d	aki-a71cf9ce	ari-a51cf9cc		monitoring-disabled	174.129.131.62	10.168.27.55	instance-store					paravirtual	xen		sg-f2af1899	default	false	
+hp@ubuntu:~$ ec2-describe-instances i-1fff5075
+RESERVATION	r-b41951d8	759692882018	default
+INSTANCE	i-1fff5075	ami-c9bc58a0	ec2-174-129-131-62.compute-1.amazonaws.com	ip-10-168-27-55.ec2.internal	running	ec2-rails-keypair	0m1.small	2013-08-01T04:08:50+0000	us-east-1d	aki-a71cf9ce	ari-a51cf9cc		monitoring-disabled	174.129.131.62	10.168.27.55	instance-store					paravirtual	xen		sg-f2af1899	default	false	
+hp@ubuntu:~$ ec2-authorize default -p 22
+GROUP			default		
+PERMISSION		default	ALLOWS	tcp	22	22	FROM	CIDR	0.0.0.0/0	ingress
+hp@ubuntu:~$ ec2-authorize default -p 80
+GROUP			default		
+PERMISSION		default	ALLOWS	tcp	80	80	FROM	CIDR	0.0.0.0/0	ingress
+hp@ubuntu:~$ ssh -i ~/.ssh/id_rsa-ec2-rails-keypair root@ec2-174-129-131-62.compute-1.amazonaws.com
+The authenticity of host 'ec2-174-129-131-62.compute-1.amazonaws.com (174.129.131.62)' can't be established.
+RSA key fingerprint is cc:ab:e7:72:a4:fd:35:d9:9b:38:5f:6c:f8:ac:37:1a.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added 'ec2-174-129-131-62.compute-1.amazonaws.com,174.129.131.62' (RSA) to the list of known hosts.
+Linux ip-10-168-27-55 2.6.21.7-2.fc8xen #1 SMP Fri Feb 15 12:39:36 EST 2008 i686
+
+EC2 on Rails
+Version 0.9.9
+http://rubyforge.org/projects/ec2onrails/
+
+Copyright 2007 Paul Dowman, http://pauldowman.com/
+
+Base AMI built using Eric Hammond's EC2 Ubuntu script: 
+http://alestic.com/
+
+This is free software, and you are welcome to redistribute it under 
+certain conditions. This software comes with ABSOLUTELY NO WARRANTY.
+See /usr/local/ec2onrails/COPYING for details.
+root@ec2-174-129-131-62-production:~# ssh-keygen
+Generating public/private rsa key pair.
+Enter file in which to save the key (/root/.ssh/id_rsa): id_aws   
+Enter passphrase (empty for no passphrase): 
+Enter same passphrase again: 
+Your identification has been saved in id_aws.
+Your public key has been saved in id_aws.pub.
+The key fingerprint is:
+e4:f6:df:c4:f9:9b:58:2a:a3:a3:25:29:e1:1e:15:c0 root@ec2-174-129-131-62.compute-1.amazonaws.com

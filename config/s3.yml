@@ -1,0 +1,9 @@
+staging:
+  aws_access_key: ABC123
+  aws_secret_access_key: abc123abc123abc123abc123
+  bucket_base_name: yourbucket
+
+production:
+  aws_access_key: AKIAIHOS2ZMN73PKB54Q
+  aws_secret_access_key: yhmctcAg9B7dDUwmipsgvchMuEh9K24kHWhC82hZ
+  bucket_base_name: production.listatcu.com
