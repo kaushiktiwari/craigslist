@@ -12,13 +12,13 @@ ssh_options[:keys] = ["#{ENV['HOME']}/.ssh/id_rsa-ec2-rails-keypair"]
 ssh_options[:forward_agent] = true 
 set :branch, "master" 
 set :deploy_via, :remote_cache 
-default_run_options[:pty] = true
 # Your EC2 instances. Use the ec2-xxx....amazonaws.com hostname, not
 # any other name (in case you have your own DNS alias) or it won't
 # be able to resolve to the internal IP address.
 role :web,      "ec2-23-22-37-247.compute-1.amazonaws.com"
 role :memcache, "ec2-23-22-37-247.compute-1.amazonaws.com"
 role :db,       "ec2-23-22-37-247.compute-1.amazonaws.com", :primary => true
+role :app,		"ec2-23-22-37-247.compute-1.amazonaws.com"
 #role :memcache, "ec2-12-xx-xx-xx.z-1.compute-1.amazonaws.com"
 #default_run_options[:pty] = true
 # Whatever you set here will be taken set as the default RAILS_ENV value
@@ -46,7 +46,7 @@ set :ec2onrails_config, {
   # connections on the public network interface (you should block the MySQL
   # port with the firewall anyway). 
   # If you don't care about setting the mysql root password then remove this.
-  :mysql_root_password => "your-mysql-root-password",
+  #:mysql_root_password => "your-mysql-root-password",
   
   # Any extra Ubuntu packages to install if desired
   # If you don't want to install extra packages then remove this.
